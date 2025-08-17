@@ -16,9 +16,11 @@ import { PagesWithLayout } from "@/types/inertia"
 const Navbar: PagesWithLayout = () => {
 
     return (
-        <header className="bg-quarter sticky top-0">
+        <header className="bg-quarter sticky top-0 z-10">
             <div className="container mx-auto py-4 px-2 flex flex-row items-center justify-between">
-                <h1 className="text-2xl font-semibold font-heading">PayForge</h1>   
+                <Link href='/' prefetch>
+                    <h1 className="text-2xl font-semibold font-heading">PayForge</h1>   
+                </Link>
 
                 <nav>
                     <NavigationMenu>
