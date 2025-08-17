@@ -8,11 +8,7 @@ export interface PagesWithLayout extends FC {
 
 declare module '@inertiajs/react' {
   interface PageProps {
-    user?: {
-      id: number,
-      name: string,
-      email: string
-    }
+    user?: User
   }
 
   export function usePage<T = PageProps>(): {
