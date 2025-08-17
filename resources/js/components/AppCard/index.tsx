@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils"
 import { cva, VariantProps } from "class-variance-authority"
-import { ReactNode } from "react"
+import { HTMLAttributes, HtmlHTMLAttributes, ReactNode } from "react"
 
 const appCardVariants = cva(
   "bg-white shadow-xl space-y-3 rounded-lg",
@@ -21,10 +21,11 @@ type AppCardProps = {
     children: ReactNode,
     className?: string
 } & VariantProps<typeof appCardVariants>
+  & HTMLAttributes<HTMLDivElement>
 
-export default function AppCard ({children, size, className}: AppCardProps) {
+export default function AppCard ({children, size, className, ...props}: AppCardProps) {
     return (
-        <div className={cn(appCardVariants({ size, className }))}>
+        <div className={cn(appCardVariants({ size, className }))} {...props}>
             {children}
         </div>
     )
