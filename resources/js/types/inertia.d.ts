@@ -2,7 +2,7 @@
 import { usePage } from "@inertiajs/react";
 import { FC, JSX, ReactNode } from "react";
 
-export interface PagesWithLayout extends FC {
+export interface PagesWithLayout<P = {}> extends FC<P> {
   layout?: (page: ReactNode) => ReactNode
 }
 

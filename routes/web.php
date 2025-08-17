@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -15,7 +17,9 @@ Route::get('/register', [AuthController::class, 'showRegister'])->name('register
 Route::post('/register', [AuthController::class, 'register'])->name('register.store');
 
 Route::middleware('auth')->group(function () {
-    Route::inertia('/', 'Home');
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+
+    Route::get('/product/{id}', [ProductController::class, 'show'])->name('product');
     
     Route::inertia('/profile', 'Profile');
 });
