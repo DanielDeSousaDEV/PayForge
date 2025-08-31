@@ -16,7 +16,7 @@ export default function ProductCard({product, handleClick}: productCardProps) {
 
             <p>
                 <span className="md:text-xl font-bold mr-2">
-                    {product.price}
+                    R$ {product.price}
                 </span>
                 <span className="md:text-xs line-through">
                     R$ 200
