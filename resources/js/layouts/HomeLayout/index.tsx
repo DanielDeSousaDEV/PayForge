@@ -17,7 +17,7 @@ export default function HomeLayout({ children }: HomeLayoutProps) {
                 <div className="container mx-auto grid grid-cols-4 py-4 px-2">
                     <div className="col-span-2">
                         <h4 className="text-2xl font-semibold font-heading text-gray-100 mb-2">PayForge</h4>   
-                        <p className="text-sm">Produzido por {' '}
+                        <p className="text-sm text-gray-100">Produzido por {' '}
                             <a className="text-blue-400 underline visited:text-purple-400" href="https://github.com/DanielDeSousaDEV">
                                 Daniel De Sousa
                             </a>
