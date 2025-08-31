@@ -1,6 +1,6 @@
 import AppCard from "@/components/AppCard";
 import HomeTitle from "@/components/HomeTitle";
-import ProductCard from "@/components/ProductCard";
+import { ProductsDisplay } from "@/components/ProductsDisplay";
 import { Button } from "@/components/ui/button";
 import { router } from "@inertiajs/react";
 
@@ -58,11 +58,10 @@ export default function Home() {
     return (
         <div className="container mx-auto mb-4 p-4">
             <HomeTitle>Produtos para você:</HomeTitle>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 place-items-center">
-                {products.map(product => (
-                    <ProductCard product={product} handleClick={handleProductCardClick} />
-                ))}
-            </div>
+            <ProductsDisplay
+              products={products}
+              handleProductCardClick={handleProductCardClick}
+            />
             
 
             <HomeTitle>Produtos em alta:</HomeTitle>
