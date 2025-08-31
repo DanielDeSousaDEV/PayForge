@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -12,9 +13,9 @@ class AuthController extends Controller
         return Inertia::render('Profile');
     }
 
-    public function login ()
+    public function login (LoginRequest $request)
     {
-        return;
+        return $request->validated();
     }
     
     public function showLogin ()
