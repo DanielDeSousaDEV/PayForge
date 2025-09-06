@@ -1,5 +1,6 @@
 import React, { useEffect, useCallback, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
+import Autoplay from "embla-carousel-autoplay";
 
 const slides = [
   "https://picsum.photos/800/400?random=1",
@@ -10,7 +11,7 @@ const slides = [
 
 export function ProductCarousel() {
   // Carrossel principal
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false }, [Autoplay({delay: 5000, stopOnInteraction: true, stopOnMouseEnter: true, })]);
   // Carrossel dos thumbnails
   const [thumbRef, thumbApi] = useEmblaCarousel({
     containScroll: 'trimSnaps',
