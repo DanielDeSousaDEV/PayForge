@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Cart;
+use App\Models\Product;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -13,11 +15,40 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(10)->create();
+        // User::factory(10)->create();
 
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+
+        $users = User::all();
+
+        $products = Product::factory(10)
+            ->create();
+
+        $users->each(function ($user) use ($products) {
+            $totalOfCarts = rand(2, 5);
+
+            $carts = Cart::factory($totalOfCarts)
+                ->create([
+                    'user_id' => $user->id
+                ]);
+            
+            $carts->each(function ($cart) use ($products) {
+                $totalOfProducts = rand(2, 5);
+
+                $syncProductsData = $products->random($totalOfProducts)->mapWithKeys(function ($product) {
+                    return [
+                        $product->id => [
+                            'quantity' => rand(2, 6)
+                        ]
+                    ];
+                });
+
+                $cart->products()->sync($syncProductsData);
+            });
+        });
+        
     }
 }
