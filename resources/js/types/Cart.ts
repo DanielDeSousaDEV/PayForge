@@ -1,9 +1,11 @@
 interface Cart {
     id: number,
-    sales: Sale[],
+    // sales: Sale[],
     user: User,
     total_value: number,
-    created_at: Date
+    created_at: Date,
+
+    products: ProductWithPivot[]
 }
 
 interface Sale {
