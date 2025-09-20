@@ -47,8 +47,12 @@ const products: Product[] = [
   }
 ]
 
+interface HomeProps {
+  products: Product[],
+  productsMoreSold: Product[]
+}
 
-export default function Home() {
+export default function Home({products, productsMoreSold}: HomeProps) {
 
     function handleProductCardClick (product: Product) {
         console.log(product)
@@ -75,6 +79,10 @@ export default function Home() {
                     <Button className="self-end">Visitar página</Button>
                 </div>
             </AppCard>
+
+            {productsMoreSold.map(
+              p => <>{p.name} <br /></>
+            )}
         </div>
     )
 }

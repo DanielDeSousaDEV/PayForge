@@ -4,15 +4,16 @@ import { ProductCarousel } from "@/components/ProductCarousel"
 import { ProductsDisplay } from "@/components/ProductsDisplay"
 import { Button } from "@/components/ui/button"
 import { PagesWithLayout } from "@/types/inertia"
+import { router } from "@inertiajs/react"
 import { Star } from "lucide-react"
 
-interface ProductProps {
-    product?: Product
+interface BuyProduct {
+    product: Product
 }
 const products: Product[] = [
   {
     id: 1,
-    img_url: "/products/tenis.jpg",
+    preview_url: "/products/tenis.jpg",
     name: "Tênis Esportivo",
     description: "Tênis leve e confortável para corridas e caminhadas.",
     price: 199.9,
@@ -20,7 +21,7 @@ const products: Product[] = [
   },
   {
     id: 2,
-    img_url: "/products/camisa.jpg",
+    preview_url: "/products/camisa.jpg",
     name: "Camisa Polo",
     description: "Camisa polo clássica de algodão, ideal para uso casual.",
     price: 89.9,
@@ -28,7 +29,7 @@ const products: Product[] = [
   },
   {
     id: 3,
-    img_url: "/products/relogio.jpg",
+    preview_url: "/products/relogio.jpg",
     name: "Relógio Digital",
     description: "Relógio digital à prova d’água com cronômetro e alarme.",
     price: 149.5,
@@ -36,7 +37,7 @@ const products: Product[] = [
   },
   {
     id: 4,
-    img_url: "/products/fone.jpg",
+    preview_url: "/products/fone.jpg",
     name: "Fone de Ouvido Bluetooth",
     description: "Fone sem fio com cancelamento de ruído e longa duração de bateria.",
     price: 249.0,
@@ -44,7 +45,7 @@ const products: Product[] = [
   },
   {
     id: 5,
-    img_url: "/products/mochila.jpg",
+    preview_url: "/products/mochila.jpg",
     name: "Mochila Executiva",
     description: "Mochila resistente com compartimento para notebook até 15.6”.",
     price: 179.9,
@@ -52,25 +53,22 @@ const products: Product[] = [
   }
 ]
 
-const prod: Product = {
-    id: 1,
-    img_url: "/products/tenis.jpg",
-    name: "Tênis Esportivo",
-    description: "Tênis leve e confortável para corridas e caminhadas.",
-    price: 199.9,
-    created_at: new Date("2025-08-01T10:00:00")
-}
+const BuyProduct: PagesWithLayout<BuyProduct> = ({product}) => {
+    function handleAddToCart() {
+        router.visit(`/cart/${product.id}/add`, {
+            method: 'post'
+        })
+    }
 
-const BuyProduct: PagesWithLayout<ProductProps> = ({product}) => {
     return (
         <div className="container mx-auto max-w-7xl mb-4 p-4 min-h-screen space-y-4">
             <div>
                 <AppCard size='sm' className="grid md:grid-cols-2 gap-4 items-stretch">
-                    <ProductCarousel />
+                    <ProductCarousel images={product.images} />
 
                     <div className="flex flex-col">
                         <h1 className="text-xl md:text-3xl font-heading font-semibold">
-                            Tenis muito massa
+                            {product.name}
                         </h1>
 
                         <div className="flex flex-col justify-between grow">
@@ -93,14 +91,19 @@ const BuyProduct: PagesWithLayout<ProductProps> = ({product}) => {
                                     <p className="font-semibold text-base md:text-lg">133 Comments</p>
                                 </div>
 
-                                <p className="text-2xl md:text-4xl font-bold mb-4">R$ 2000.00</p>
+                                <p className="text-2xl md:text-4xl font-bold mb-4">R$ {product.price}</p>
                             </div>
 
                             <div className="space-y-2">
                                 <Button size='lg' className="w-full">
                                     Comprar
                                 </Button>
-                                <Button size='lg' variant='outline' className="w-full">
+                                <Button 
+                                    size='lg' 
+                                    variant='outline' 
+                                    className="w-full"
+                                    onClick={handleAddToCart}
+                                >
                                     Adicionar ao carrinho
                                 </Button>
                             </div>
