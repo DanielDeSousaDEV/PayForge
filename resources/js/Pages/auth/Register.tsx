@@ -21,7 +21,7 @@ const Register: PagesWithLayout = () => {
 
     function handleSubmit(e: FormEvent) {
         e.preventDefault();
-        post('register')
+        post('/register')
     }
 
     return (

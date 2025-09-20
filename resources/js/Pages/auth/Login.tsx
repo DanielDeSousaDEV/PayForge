@@ -6,9 +6,13 @@ import { Label } from "@/components/ui/label"
 import LoginLayout from "@/layouts/LoginLayout"
 import { PagesWithLayout } from "@/types/inertia"
 import { Link, useForm } from "@inertiajs/react"
-import { FormEvent } from "react"
+import { Eye, EyeOff } from "lucide-react"
+import { FormEvent, useState } from "react"
 
 const Login: PagesWithLayout = () => {
+
+    const [showPassword, setShowPassword] = useState(false)
+
     const {post, processing, setData, errors, data} = useForm({
         email: '',
         password: '',
@@ -37,10 +41,25 @@ const Login: PagesWithLayout = () => {
                     </div>
                     <div className="space-y-1">
                         <Label>Password:</Label>
-                        <Input
-                            value={data.password}
-                            onChange={e => setData('password', e.target.value)}
-                        />  
+                        <div className="relative">
+                            <Input
+                                value={data.password}
+                                onChange={e => setData('password', e.target.value)}
+                            />  
+
+                            <Button 
+                                size='icon' 
+                                variant='ghost' 
+                                className="absolute top-1/2 right-0 -translate-y-1/2 bg-transparent hover:bg-transparent"
+                                type='button'
+                                onClick={() => setShowPassword(prev => !prev)}
+                            >
+                                {showPassword 
+                                    ? <Eye/>
+                                    : <EyeOff/>
+                                }
+                            </Button>
+                        </div> 
                         <FormErro>{errors.password}</FormErro>
                     </div>
                 </div>
