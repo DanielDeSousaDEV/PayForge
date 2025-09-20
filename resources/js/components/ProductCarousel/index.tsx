@@ -2,6 +2,10 @@ import React, { useEffect, useCallback, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 
+interface ProductCarouselProps {
+  images: string[]
+}
+
 const slides = [
   "https://picsum.photos/800/400?random=1",
   "https://picsum.photos/800/400?random=2",
@@ -9,7 +13,7 @@ const slides = [
   "https://picsum.photos/800/400?random=4",
 ];
 
-export function ProductCarousel() {
+export function ProductCarousel({images}: ProductCarouselProps) {
   // Carrossel principal
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false }, [Autoplay({delay: 5000, stopOnInteraction: true, stopOnMouseEnter: true, })]);
   // Carrossel dos thumbnails
@@ -47,7 +51,7 @@ export function ProductCarousel() {
       {/* Carrossel Principal */}
       <div className="overflow-hidden rounded-2xl" ref={emblaRef}>
         <div className="flex">
-          {slides.map((src, i) => (
+          {images.map((src, i) => (
             <div key={i} className="flex-[0_0_100%] min-w-0">
               <img src={src} alt={`Slide ${i}`} className="w-full min-h-52 md:min-h-64 object-cover rounded-2xl" />
             </div>
@@ -58,7 +62,7 @@ export function ProductCarousel() {
       {/* Thumbnails */}
       <div className="mx-auto max-w-80 md:mx-0 md:max-w-none overflow-hidden" ref={thumbRef}>
         <div className="flex gap-2 px-2">
-          {slides.map((src, i) => (
+          {images.map((src, i) => (
             <button
               key={i}
               type="button"

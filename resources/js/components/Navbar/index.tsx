@@ -10,10 +10,12 @@ import {
   NavigationMenuViewport,
 } from "@/components/ui/navigation-menu"
 import { Link, usePage } from "@inertiajs/react"
-import { CircleUserRound, ShoppingBag } from "lucide-react"
+import { CircleUserRound, ShoppingBag, ShoppingCart } from "lucide-react"
 import { PagesWithLayout } from "@/types/inertia"
+import { cn } from "@/lib/utils"
 
 const Navbar: PagesWithLayout = () => {
+    const {url} = usePage()
 
     return (
         <header className="bg-quarter sticky top-0 z-10">
@@ -34,10 +36,22 @@ const Navbar: PagesWithLayout = () => {
                             <NavigationMenuItem>
                                 <NavigationMenuLink asChild>
                                     <Link
-                                        href='/bag'
-                                        className="group/bag flex items-center p-2 rounded hover:bg-primary transition-colors"
+                                        href='/cart'
+                                        className={cn(
+                                            'group/bag flex items-center p-2 rounded transition-colors focus:bg-primary',
+                                            url.startsWith('/cart') 
+                                                ? 'bg-primary' 
+                                                : ''
+                                        )}
                                     >
-                                        <ShoppingBag className="size-6 text-gray-800 group-hover/bag:text-gray-100 transition-colors" />
+                                        <ShoppingCart 
+                                            className={cn(
+                                                "size-6 text-gray group-active/bag:text-black transition-colors",
+                                                url.startsWith('/cart') 
+                                                    ? 'stroke-gray-100' 
+                                                    : ''
+                                            )} 
+                                        />
                                     </Link>
                                 </NavigationMenuLink> 
                             </NavigationMenuItem>
@@ -45,9 +59,21 @@ const Navbar: PagesWithLayout = () => {
                                 <NavigationMenuLink asChild>
                                     <Link
                                         href='/profile'
-                                        className="group/profile flex items-center p-2 rounded hover:bg-primary transition-colors"
+                                        className={cn(
+                                            'group/profile flex items-center p-2 rounded transition-colors focus:bg-primary',
+                                            url.startsWith('/profile') 
+                                                ? 'bg-primary' 
+                                                : ''
+                                        )}
                                     >
-                                        <CircleUserRound className="size-6 text-gray-800 group-hover/profile:text-gray-100 transition-colors" />
+                                        <CircleUserRound 
+                                            className={cn(
+                                                "size-6 text-gray-800 group-active/profile:text-black transition-colors",
+                                                url.startsWith('/profile') 
+                                                    ? 'stroke-gray-100' 
+                                                    : ''
+                                            )} 
+                                        />
                                     </Link>
                                 </NavigationMenuLink>   
                             </NavigationMenuItem>
