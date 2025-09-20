@@ -1,3 +1,4 @@
+import { AppToast } from "@/components/AppToast"
 import { ReactNode } from "react"
 
 interface LoginLayoutProps {
@@ -6,11 +7,15 @@ interface LoginLayoutProps {
 
 const LoginLayout = ({children}: LoginLayoutProps) => {
     return (
-        <main className="h-screen flex items-center justify-center">
-            <div className="container mx-auto max-w-xl">
-                {children}
-            </div>
-        </main>
+        <>
+            <main className="h-screen flex items-center justify-center">
+                <div className="container mx-auto max-w-xl">
+                    {children}
+                </div>
+            </main>
+
+            <AppToast />
+        </>
     )
 }
 
