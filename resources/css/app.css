@@ -154,3 +154,7 @@
 .animate-fade-out {
     animation: fade-out 0.3s ease-in forwards;
 }
+
+.halfStar {
+    clip-path: polygon(0% 0%, 52.5% 0%, 52.5% 100%, 0% 100%)
+}

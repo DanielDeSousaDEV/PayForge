@@ -1,63 +1,23 @@
+import { AddProductToCartModal } from "@/components/AddProductToCartModal"
 import AppCard from "@/components/AppCard"
 import HomeTitle from "@/components/HomeTitle"
 import { ProductCarousel } from "@/components/ProductCarousel"
 import { ProductsDisplay } from "@/components/ProductsDisplay"
+import { RatingStars } from "@/components/RatingStarts"
 import { Button } from "@/components/ui/button"
 import { PagesWithLayout } from "@/types/inertia"
-import { router } from "@inertiajs/react"
-import { Star } from "lucide-react"
+import { useState } from "react"
 
-interface BuyProduct {
-    product: Product
+interface BuyProductProps {
+    product: Product,
+    recomendedProducts: Product[],
 }
-const products: Product[] = [
-  {
-    id: 1,
-    preview_url: "/products/tenis.jpg",
-    name: "Tênis Esportivo",
-    description: "Tênis leve e confortável para corridas e caminhadas.",
-    price: 199.9,
-    created_at: new Date("2025-08-01T10:00:00")
-  },
-  {
-    id: 2,
-    preview_url: "/products/camisa.jpg",
-    name: "Camisa Polo",
-    description: "Camisa polo clássica de algodão, ideal para uso casual.",
-    price: 89.9,
-    created_at: new Date("2025-08-02T15:30:00")
-  },
-  {
-    id: 3,
-    preview_url: "/products/relogio.jpg",
-    name: "Relógio Digital",
-    description: "Relógio digital à prova d’água com cronômetro e alarme.",
-    price: 149.5,
-    created_at: new Date("2025-08-05T09:45:00")
-  },
-  {
-    id: 4,
-    preview_url: "/products/fone.jpg",
-    name: "Fone de Ouvido Bluetooth",
-    description: "Fone sem fio com cancelamento de ruído e longa duração de bateria.",
-    price: 249.0,
-    created_at: new Date("2025-08-07T18:20:00")
-  },
-  {
-    id: 5,
-    preview_url: "/products/mochila.jpg",
-    name: "Mochila Executiva",
-    description: "Mochila resistente com compartimento para notebook até 15.6”.",
-    price: 179.9,
-    created_at: new Date("2025-08-10T12:00:00")
-  }
-]
 
-const BuyProduct: PagesWithLayout<BuyProduct> = ({product}) => {
+const BuyProduct: PagesWithLayout<BuyProductProps> = ({product, recomendedProducts}) => {
+    const [isOpenModal, setIsOpenModal] = useState(false)
+
     function handleAddToCart() {
-        router.visit(`/cart/${product.id}/add`, {
-            method: 'post'
-        })
+        setIsOpenModal(true)
     }
 
     return (
@@ -77,13 +37,9 @@ const BuyProduct: PagesWithLayout<BuyProduct> = ({product}) => {
                                 <div className="flex flex-col md:flex-row items-start md:items-center gap-4 mb-4">
                                     <div className="flex row gap-2 items-center">
                                         <div className="flex row gap-1">
-                                            <Star className="fill-amber-300 stroke-amber-300" />
-                                            <Star className="fill-amber-300 stroke-amber-300" />
-                                            <Star className="fill-amber-300 stroke-amber-300" />
-                                            <Star className="fill-amber-300 stroke-amber-300" />
-                                            <Star className="fill-amber-300 stroke-amber-300" />
+                                            <RatingStars rating={product.rating} />
                                         </div>
-                                        <p className="font-semibold text-base md:text-lg">4.5</p>
+                                        <p className="font-semibold text-base md:text-lg">{product.rating}</p>
                                     </div>
 
                                     <p className="hidden md:block text-2xl">•</p>
@@ -120,8 +76,14 @@ const BuyProduct: PagesWithLayout<BuyProduct> = ({product}) => {
 
 
             <ProductsDisplay 
-                products={products}
+                products={recomendedProducts}
                 handleProductCardClick={prod => console.log(prod)}
+            />
+
+            <AddProductToCartModal
+                product={product}
+                onOpenChange={setIsOpenModal}
+                open={isOpenModal}
             />
         </div>
     )
