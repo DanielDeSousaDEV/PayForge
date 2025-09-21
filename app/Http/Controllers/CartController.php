@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\FlashMessageTypeEnum;
+use App\Http\Requests\Cart\AddProductToCartRequest;
 use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -32,7 +33,7 @@ class CartController extends Controller
         ]);
     }
 
-    function addProduct($id)
+    function addProduct(AddProductToCartRequest $request, $id)
     {
         try {
             $user = Auth::user();
@@ -68,8 +69,10 @@ class CartController extends Controller
                 ]);
             }
 
+            $productQuantity = $request->validated()['quantity'];
+
             $cartToAddProduct->products()->syncWithoutDetaching([
-                $product->id => ['quantity' => 5]
+                $product->id => ['quantity' => $productQuantity]
             ]);
 
             return to_route('cart')
