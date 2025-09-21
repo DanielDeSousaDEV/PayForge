@@ -19,8 +19,15 @@ class ProductController extends Controller
                 ->with('flash.message', 'Não foi possível encontrar o produto');
         }
 
+        $recomendedProducts = fn () => 
+            Product::query()
+                ->orderByDesc('created_at')
+                ->limit(5)
+                ->get();
+
         return Inertia::render('BuyProduct', [
-            'product' => $product
+            'product' => $product,
+            'recomendedProducts' => $recomendedProducts,
         ]);
     }
 }
