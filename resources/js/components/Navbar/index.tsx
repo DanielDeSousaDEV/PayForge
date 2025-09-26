@@ -10,9 +10,10 @@ import {
   NavigationMenuViewport,
 } from "@/components/ui/navigation-menu"
 import { Link, usePage } from "@inertiajs/react"
-import { CircleUserRound, ShoppingCart } from "lucide-react"
+import { Box, CircleUserRound, ShoppingCart } from "lucide-react"
 import { PagesWithLayout } from "@/types/inertia"
 import { cn } from "@/lib/utils"
+import { ProtectedAdminView } from "../ProtectedAdminView"
 
 const Navbar: PagesWithLayout = () => {
     const {url} = usePage()
@@ -33,6 +34,54 @@ const Navbar: PagesWithLayout = () => {
                                     <NavigationMenuLink>Link</NavigationMenuLink>
                                 </NavigationMenuContent>
                             </NavigationMenuItem> */}
+                            <ProtectedAdminView>
+                                <NavigationMenuItem>
+                                    <NavigationMenuLink asChild>
+                                        <Link
+                                            href='/admin/users'
+                                            prefetch
+                                            className={cn(
+                                                'group/bag flex items-center p-2 rounded transition-colors focus:bg-primary',
+                                                url.startsWith('/admin/users') 
+                                                    ? 'bg-primary' 
+                                                    : ''
+                                            )}
+                                        >
+                                            <ShoppingCart 
+                                                className={cn(
+                                                    "size-6 text-gray group-active/bag:text-black transition-colors",
+                                                    url.startsWith('/admin/users') 
+                                                        ? 'stroke-gray-100' 
+                                                        : ''
+                                                )} 
+                                            />
+                                        </Link>
+                                    </NavigationMenuLink> 
+                                </NavigationMenuItem>
+                                <NavigationMenuItem>
+                                    <NavigationMenuLink asChild>
+                                        <Link
+                                            href='/admin/products'
+                                            prefetch
+                                            className={cn(
+                                                'group/bag flex items-center p-2 rounded transition-colors focus:bg-primary',
+                                                url.startsWith('/admin/products') 
+                                                    ? 'bg-primary' 
+                                                    : ''
+                                            )}
+                                        >
+                                            <Box
+                                                className={cn(
+                                                    "size-6 text-gray group-active/bag:text-black transition-colors",
+                                                    url.startsWith('/admin/products') 
+                                                        ? 'stroke-gray-100' 
+                                                        : ''
+                                                )} 
+                                            />
+                                        </Link>
+                                    </NavigationMenuLink> 
+                                </NavigationMenuItem>
+                            </ProtectedAdminView>
                             <NavigationMenuItem>
                                 <NavigationMenuLink asChild>
                                     <Link
