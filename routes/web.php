@@ -23,13 +23,15 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
 
-    Route::get('/product/{id}', [ProductController::class, 'show'])->name('product');
+    Route::get('/product/{id}', [ProductController::class, 'buyProduct'])->name('product');
 
     Route::get('/cart', [CartController::class, 'show'])->name('cart');
     Route::post('/cart/{id}/add', [CartController::class, 'addProduct'])->name('cart.add');
 
     Route::get('/profile', [AuthController::class, 'showProfile'])->name('profile');
     Route::post('/profile', [AuthController::class, 'updateProfile'])->name('profile.update');
+
+    Route::get('/admin/products', [ProductController::class, 'showProductsPanel'])->name('admin.products');
 });
 
 

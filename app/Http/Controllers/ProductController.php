@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use App\FlashMessageTypeEnum;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class ProductController extends Controller
 {
-    function show (int $id)
+    function buyProduct (int $id)
     {
         $product = Product::find($id);
 
@@ -28,6 +29,25 @@ class ProductController extends Controller
         return Inertia::render('BuyProduct', [
             'product' => $product,
             'recomendedProducts' => $recomendedProducts,
+        ]);
+    }
+
+    function showProductsPanel ()
+    {
+        $user = Auth::user();
+
+        if (!$user) {
+            return to_route('login')
+                ->with('flash.type', FlashMessageTypeEnum::ERROR)
+                ->with('flash.message', 'Usuário não atenticado');
+        }
+
+        $productsPagination = Product::paginate(1);
+
+
+
+        return Inertia::render('ProductsPanel', [
+            'productsPagination' => $productsPagination
         ]);
     }
 }
