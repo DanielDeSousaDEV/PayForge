@@ -19,6 +19,7 @@ class CartFactory extends Factory
         return [
             'total_cost' => fake()->randomFloat(2, 0, 1000),
             'is_active' => fake()->boolean(5),
+            'alredy_paid' => fake()->boolean(),
             'user_id' => null,
         ];
     }

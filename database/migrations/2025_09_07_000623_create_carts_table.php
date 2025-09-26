@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->decimal('total_cost');
             $table->boolean('is_active');
+            $table->boolean('alredy_paid');
             
             $table->foreignIdFor(User::class);
 

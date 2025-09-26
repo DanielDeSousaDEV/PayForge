@@ -20,6 +20,7 @@ class Cart extends Model
 
     protected $casts = [
         'is_active' => 'boolean',
+        'alredy_paid' => 'boolean',
     ];
 
     public function products(): BelongsToMany
