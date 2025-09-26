@@ -10,7 +10,7 @@ import {
   NavigationMenuViewport,
 } from "@/components/ui/navigation-menu"
 import { Link, usePage } from "@inertiajs/react"
-import { CircleUserRound, ShoppingBag, ShoppingCart } from "lucide-react"
+import { CircleUserRound, ShoppingCart } from "lucide-react"
 import { PagesWithLayout } from "@/types/inertia"
 import { cn } from "@/lib/utils"
 
@@ -37,6 +37,7 @@ const Navbar: PagesWithLayout = () => {
                                 <NavigationMenuLink asChild>
                                     <Link
                                         href='/cart'
+                                        prefetch
                                         className={cn(
                                             'group/bag flex items-center p-2 rounded transition-colors focus:bg-primary',
                                             url.startsWith('/cart') 
@@ -59,6 +60,7 @@ const Navbar: PagesWithLayout = () => {
                                 <NavigationMenuLink asChild>
                                     <Link
                                         href='/profile'
+                                        prefetch
                                         className={cn(
                                             'group/profile flex items-center p-2 rounded transition-colors focus:bg-primary',
                                             url.startsWith('/profile') 
