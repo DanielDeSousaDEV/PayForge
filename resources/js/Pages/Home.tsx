@@ -4,49 +4,6 @@ import { ProductsDisplay } from "@/components/ProductsDisplay";
 import { Button } from "@/components/ui/button";
 import { router } from "@inertiajs/react";
 
-const products: Product[] = [
-  {
-    id: 1,
-    img_url: "/products/tenis.jpg",
-    name: "Tênis Esportivo",
-    description: "Tênis leve e confortável para corridas e caminhadas.",
-    price: 199.9,
-    created_at: new Date("2025-08-01T10:00:00")
-  },
-  {
-    id: 2,
-    img_url: "/products/camisa.jpg",
-    name: "Camisa Polo",
-    description: "Camisa polo clássica de algodão, ideal para uso casual.",
-    price: 89.9,
-    created_at: new Date("2025-08-02T15:30:00")
-  },
-  {
-    id: 3,
-    img_url: "/products/relogio.jpg",
-    name: "Relógio Digital",
-    description: "Relógio digital à prova d’água com cronômetro e alarme.",
-    price: 149.5,
-    created_at: new Date("2025-08-05T09:45:00")
-  },
-  {
-    id: 4,
-    img_url: "/products/fone.jpg",
-    name: "Fone de Ouvido Bluetooth",
-    description: "Fone sem fio com cancelamento de ruído e longa duração de bateria.",
-    price: 249.0,
-    created_at: new Date("2025-08-07T18:20:00")
-  },
-  {
-    id: 5,
-    img_url: "/products/mochila.jpg",
-    name: "Mochila Executiva",
-    description: "Mochila resistente com compartimento para notebook até 15.6”.",
-    price: 179.9,
-    created_at: new Date("2025-08-10T12:00:00")
-  }
-]
-
 interface HomeProps {
   products: Product[],
   productsMoreSold: Product[]
