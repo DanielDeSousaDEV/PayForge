@@ -38,7 +38,7 @@ class HandleInertiaRequests extends Middleware
         return [
             ...parent::share($request),
             'user' => fn () => $request->user()
-                ? $request->user()->only('id', 'name', 'email')
+                ? $request->user()->except('password', 'remember_token')
                 : null, 
             'flash' => [
                 'type' => fn () => $request->session()->get('flash.type'),
