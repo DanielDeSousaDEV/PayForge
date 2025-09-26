@@ -1,18 +1,16 @@
 import { usePage, router, useForm } from '@inertiajs/react';
 import { FormEvent, useState } from 'react';
-import { useForm as useRHFForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { ProfileEditSchema } from '@/schemas/Profile/ProfileEditSchema';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import AppCard from '@/components/AppCard';
-import { z } from 'zod';
 import { Label } from '@/components/ui/label';
 import { FormErro } from '@/components/FormErro';
 
-type ProfileFormData = z.infer<typeof ProfileEditSchema>;
+interface ProfileProps{
+    carts: Cart[]
+}
 
-export default function Profile() {
+export default function Profile({carts}: ProfileProps) {
     const { user } = usePage().props;
     const [isEditable, setIsEditable] = useState(false);
 
@@ -71,6 +69,15 @@ export default function Profile() {
                     </div>
                 </form>
             </AppCard>
+
+            
+            <h1 className="text-2xl font-semibold mb-2">Carrinhos</h1>
+
+            {carts.map(s => 
+                <>
+                    {s.alredy_paid ? 'pago' : 'não pago'} <br />
+                </>
+            )}
         </div>
     );
 }

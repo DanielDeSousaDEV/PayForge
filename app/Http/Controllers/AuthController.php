@@ -6,6 +6,7 @@ use App\FlashMessageTypeEnum;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Requests\UpdateProfileRequest;
+use App\Models\Cart;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +18,22 @@ class AuthController extends Controller
 {
     public function showProfile()
     {
-        return Inertia::render('Profile');
+        $user = Auth::user();
+
+        if (!$user) {
+            return to_route('login')
+                ->with('flash.type', FlashMessageTypeEnum::ERROR)
+                ->with('flash.message', 'Usuário não atenticado');
+        }
+
+        $carts = fn () => 
+            Cart::query()
+            ->where('user_id', $user->id)
+            ->get();
+
+        return Inertia::render('Profile', [
+            'carts' => $carts
+        ]);
     }
 
     public function updateProfile(UpdateProfileRequest $request)
