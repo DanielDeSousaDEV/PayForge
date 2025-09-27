@@ -8,7 +8,8 @@ interface AppPaginationProps {
 
 
 export function AppPagination({paginatedData}:AppPaginationProps) {
-    let qtdOfEllipsis = 0; 
+    let initialEllipsisAdded = false;
+    let afterEllipsisAdded = false;
 
     return (
         <Pagination>
@@ -49,33 +50,32 @@ export function AppPagination({paginatedData}:AppPaginationProps) {
                         );
                     }
 
-                    // Defini Ellipsis
+                    // Defini Ellipsis no inicio
                     if (
-                        // paginatedData.total > 5 &&
-                        // index > 2 &&
-                        // index < paginatedData.total
                         paginatedData.total > 5 &&
                         index > 1 &&
+                        index < paginatedData.current_page - 1 
+                    ) {                        
+                        if (initialEllipsisAdded) return;
+                        initialEllipsisAdded = true;
 
-
-                        index < paginatedData.current_page - 1 ||
+                        return (
+                            <PaginationItem key={index}>
+                                <PaginationEllipsis/>
+                            </PaginationItem>
+                        )
+                    }
+                    
+                    // Defini Ellipsis no final
+                    if (
+                        paginatedData.total > 5 &&
+                        index > 1 &&
                         index > paginatedData.current_page + 1 &&
-
-
                         index < paginatedData.total
                     ) {
-                        console.log(
-                            index, 
-                            paginatedData.total > 5 ,
-                            index > 2 ,
-                            index > paginatedData.current_page - 1 ,
-                            index < paginatedData.current_page + 1 ,
-                            index < paginatedData.total - 1
-                        );
                         
-                        if (qtdOfEllipsis === 2) return;
-
-                        qtdOfEllipsis += 1;
+                        if (afterEllipsisAdded) return;
+                        afterEllipsisAdded = true;
 
                         return (
                             <PaginationItem key={index}>
