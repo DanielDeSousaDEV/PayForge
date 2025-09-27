@@ -17,8 +17,9 @@ import { Button } from "@/components/ui/button"
 import { Plus, Trash2 } from "lucide-react"
 import { AppPagination } from "@/components/AppPagination"
 import { useBoolean, useMediaQuery } from "usehooks-ts"
-import { CreateProductModal } from "@/components/CreateProductModal"
 import { Badge } from "@/components/ui/badge"
+import { usePage } from "@inertiajs/react"
+import { CreateUserModal } from "@/components/CreateUserModal"
 
 interface UsersPanelProps {
     usersPagination: PaginationType<User>
@@ -26,12 +27,17 @@ interface UsersPanelProps {
 
 const UsersPanel: PagesWithLayout<UsersPanelProps> = ({usersPagination}) => {
     const isMobile = useMediaQuery('(max-width: 767px)');
+    const {user: authUser} = usePage().props
+
     const {
         value: isOpenCreateUserModal,
         setTrue: openCreateUserModal,
         setFalse: closeCreateUserModal,
         setValue: setIsOpenCreateUserModal
     } = useBoolean(false)
+
+    const filteredData = usersPagination.data
+        .filter(u => u.id !== authUser?.id); //Remove o usuário logado da lista
 
     function handleDeleteUser(id: number) {
         router.visit(`/admin/users/${id}`, {
@@ -67,7 +73,7 @@ const UsersPanel: PagesWithLayout<UsersPanelProps> = ({usersPagination}) => {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {usersPagination.data.map(user => 
+                        {filteredData.map(user => 
                             <TableRow key={user.id}>
                                 <TableCell className="font-medium">{user.id}</TableCell>
                                 <TableCell>{user.name}</TableCell>
@@ -100,7 +106,7 @@ const UsersPanel: PagesWithLayout<UsersPanelProps> = ({usersPagination}) => {
                 </Table>
             </div>
 
-            <CreateProductModal 
+            <CreateUserModal 
                 open={isOpenCreateUserModal}
                 onOpenChange={setIsOpenCreateUserModal}
             />
