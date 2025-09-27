@@ -32,6 +32,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/profile', [AuthController::class, 'updateProfile'])->name('profile.update');
 
     Route::get('/admin/products', [ProductController::class, 'showProductsPanel'])->name('admin.products');
+    Route::post('/admin/products', [ProductController::class, 'storeProduct'])->name('admin.products.store');
+    Route::delete('/admin/products/{id}', [ProductController::class, 'destroy'])->name('admin.products.destroy');
 });
 
 

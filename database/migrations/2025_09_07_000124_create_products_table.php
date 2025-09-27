@@ -19,8 +19,10 @@ return new class extends Migration
                 ->nullable();
             $table->decimal('rating', 2, 1)
                 ->default(0);
-            $table->string('preview_url');
-            $table->json('images');
+            $table->string('preview_url')
+                ->nullable();
+            $table->json('images')
+                ->nullable();
             $table->timestamps();
         });
     }
