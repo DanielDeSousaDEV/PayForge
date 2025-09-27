@@ -10,7 +10,7 @@ import {
   NavigationMenuViewport,
 } from "@/components/ui/navigation-menu"
 import { Link, usePage } from "@inertiajs/react"
-import { Box, CircleUserRound, ShoppingCart } from "lucide-react"
+import { Box, CircleUserRound, ShoppingCart, UserCog2Icon } from "lucide-react"
 import { PagesWithLayout } from "@/types/inertia"
 import { cn } from "@/lib/utils"
 import { ProtectedAdminView } from "../ProtectedAdminView"
@@ -47,7 +47,7 @@ const Navbar: PagesWithLayout = () => {
                                                     : ''
                                             )}
                                         >
-                                            <ShoppingCart 
+                                            <UserCog2Icon
                                                 className={cn(
                                                     "size-6 text-gray group-active/bag:text-black transition-colors",
                                                     url.startsWith('/admin/users') 
