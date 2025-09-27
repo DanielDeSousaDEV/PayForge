@@ -17,7 +17,7 @@ class Product extends Model
         'rating',
         'description',
         'preview_url',
-        'image',
+        'images',
     ];
 
     protected $casts = [
