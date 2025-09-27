@@ -124,7 +124,7 @@ class ProductController extends Controller
         session()->flash('flash.type', FlashMessageTypeEnum::SUCCESS);
         session()->flash('flash.message', 'Produto criado com sucesso!');
 
-        return back(); // retorna o produto diretamente
+        return back();
     }
 
     function destroy ($id)

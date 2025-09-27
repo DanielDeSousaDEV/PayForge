@@ -59,7 +59,7 @@ export function CreateProductModal({open, onOpenChange}: CreateProductModalProps
                 <form onSubmit={handleSubmit}>
                     <div className="grid gap-4">
                         <div className="grid gap-3">
-                            <Label htmlFor="name">Name</Label>
+                            <Label htmlFor="name">Nome</Label>
                             <Input
                                 id="name" 
                                 name="name"
