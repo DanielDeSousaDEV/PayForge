@@ -177,10 +177,37 @@ class ProductController extends Controller
                 ->with('flash.message', 'Não foi possível achar o produto');
         }
 
-        $product->delete();
+        try {
+    
+            // Desativa os preços
+            $stripePrices = $this->StripeClient->prices->all([
+                'product' => $product->stripe_product_id,
+            ]);
 
-        return back()   
-            ->with('flash.type', FlashMessageTypeEnum::SUCCESS)
-            ->with('flash.message', 'Produto excluido com sucesso!');
+            foreach ($stripePrices->data as $price) {
+                $this->StripeClient->prices->update($price->id, [
+                    'active' => false    
+                ]);
+            }
+
+
+            // Desativa o produto
+            $this->StripeClient->products->update($product->stripe_product_id, [
+                'active' => false
+            ]);
+
+
+            $product->delete();
+    
+            return back()   
+                ->with('flash.type', FlashMessageTypeEnum::SUCCESS)
+                ->with('flash.message', 'Produto excluido com sucesso!');
+
+        } catch (\Throwable $th) {
+            return back()   
+                ->with('flash.type', FlashMessageTypeEnum::ERROR)
+                ->with('flash.message', 'Ocorreu um erro ao deletar o produto!');
+        }
+
     }
 }
