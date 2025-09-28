@@ -40,8 +40,15 @@ class DatabaseSeeder extends Seeder
 
             $carts = Cart::factory($totalOfCarts)
                 ->create([
-                    'user_id' => $user->id
+                    'user_id' => $user->id,
+                    'alredy_paid' => true
                 ]);
+
+            $lastCart = $carts->last();
+
+            $lastCart->update([
+                'alredy_paid' => fake()->boolean(25)
+            ]);
             
             $carts->each(function ($cart) use ($products) {
                 $totalOfProducts = rand(2, 5);
