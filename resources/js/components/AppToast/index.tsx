@@ -1,5 +1,4 @@
 import { FlashMessagesTypeEnum } from "@/enums/FlashMessagesTypes"
-import { cn } from "@/lib/utils"
 import { usePage } from "@inertiajs/react"
 import { useEffect, useRef, useState } from "react"
 
