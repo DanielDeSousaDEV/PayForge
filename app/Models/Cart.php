@@ -15,11 +15,10 @@ class Cart extends Model
     protected $fillable = [
         'total_cost',
         'user_id',
-        'is_active',
+        'alredy_paid',
     ];
 
     protected $casts = [
-        'is_active' => 'boolean',
         'alredy_paid' => 'boolean',
     ];
 

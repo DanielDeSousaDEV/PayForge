@@ -15,8 +15,8 @@ return new class extends Migration
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
             $table->decimal('total_cost');
-            $table->boolean('is_active');
-            $table->boolean('alredy_paid');
+            $table->boolean('alredy_paid')
+                ->default(false);
             
             $table->foreignIdFor(User::class);
 

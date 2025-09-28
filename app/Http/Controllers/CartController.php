@@ -25,7 +25,7 @@ class CartController extends Controller
         $userActiveCart = Cart::query()
             ->with('products')
             ->where('user_id', $user->id)
-            ->where('is_active', true)
+            ->where('alredy_paid', false)
             ->first();
 
         return Inertia::render('Cart', [
@@ -54,7 +54,7 @@ class CartController extends Controller
 
             $userActiveCart = Cart::query()
                 ->where('user_id', $user->id)
-                ->where('is_active', true)
+                ->where('alredy_paid', false)
                 ->first();
 
             $cartToAddProduct = null;
@@ -65,7 +65,7 @@ class CartController extends Controller
                 $cartToAddProduct = Cart::create([
                     'user_id' => $user->id,
                     'total_cost' => $product->price,
-                    'is_active' => true
+                    'alredy_paid' => false
                 ]);
             }
 
@@ -85,5 +85,31 @@ class CartController extends Controller
                 ->with('flash.message', 'Tente novamente mais tarde'. $th->getMessage());
         }
         
+    }
+
+    function payCart()
+    {
+        $user = Auth::user();
+
+        if (!$user) {
+            return to_route('login')
+                ->with('flash.type', FlashMessageTypeEnum::ERROR)
+                ->with('flash.message', 'Usuário não atenticado');
+        }
+        
+        $userActiveCart = Cart::query()
+                ->where('user_id', $user->id)
+                ->where('alredy_paid', false)
+                ->first();
+
+        //checkout 
+
+        $userActiveCart->update([
+            'alredy_paid' => true
+        ]);
+
+        return back()
+            ->with('flash.type', FlashMessageTypeEnum::SUCCESS)
+            ->with('flash.message', 'Pago com sucesso');
     }
 }
