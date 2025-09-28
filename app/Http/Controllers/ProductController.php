@@ -10,7 +10,6 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
-use Stripe\Stripe;
 use Stripe\StripeClient;
 
 class ProductController extends Controller
