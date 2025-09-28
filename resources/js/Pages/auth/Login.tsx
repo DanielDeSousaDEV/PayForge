@@ -40,7 +40,7 @@ const Login: PagesWithLayout = () => {
                         <FormErro>{errors.email}</FormErro>
                     </div>
                     <div className="space-y-1">
-                        <Label>Password:</Label>
+                        <Label>Senha:</Label>
                         <div className="relative">
                             <Input
                                 value={data.password}
