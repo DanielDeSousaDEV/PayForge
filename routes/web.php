@@ -28,6 +28,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/cart', [CartController::class, 'show'])->name('cart');
     Route::post('/cart/{id}/add', [CartController::class, 'addProduct'])->name('cart.add');
+    Route::post('/cart/{id}/pay', [CartController::class, 'payCart'])->name('cart.pay');
 
     Route::get('/profile', [AuthController::class, 'showProfile'])->name('profile');
     Route::post('/profile', [AuthController::class, 'updateProfile'])->name('profile.update');
