@@ -12,7 +12,7 @@ use Inertia\Inertia;
 
 class CartController extends Controller
 {
-    function show()
+    function show(Request $request)
     {
         $user = Auth::user();
 
@@ -27,6 +27,16 @@ class CartController extends Controller
             ->where('user_id', $user->id)
             ->where('alredy_paid', false)
             ->first();
+
+        if ($request->filled('paymentCart')) {
+            if ($request->get('paymentCart') === 'success') {
+                session()->flash('flash.type', FlashMessageTypeEnum::SUCCESS);
+                session()->flash('flash.message', 'Carrinho pago com sucesso!');
+            } else {
+                session()->flash('flash.type', FlashMessageTypeEnum::ERROR);
+                session()->flash('flash.message', 'Não foi possível pagar o carrinho!');
+            }
+        }
 
         return Inertia::render('Cart', [
             'cart' => $userActiveCart
@@ -98,11 +108,45 @@ class CartController extends Controller
         }
         
         $userActiveCart = Cart::query()
+                ->with('products')
                 ->where('user_id', $user->id)
                 ->where('alredy_paid', false)
                 ->first();
 
-        //checkout 
+        if ($userActiveCart->products->count() < 1) {
+            back()
+                ->with('flash.type', FlashMessageTypeEnum::ERROR)
+                ->with('flash.message', 'Você não pode pagar um carrinho vazio');
+        }
+
+        $stripeProductsData = [];
+
+        foreach ($userActiveCart->products as $product) {
+            $stripeProductsData[$product->stripe_price_id] = $product->pivot->quantity;
+        }
+
+
+        $checkout = $user->checkout($stripeProductsData, [
+            'success_url' => route('cart', [
+                'paymentCart' => 'success'
+            ]),
+            'cancel_url' => route('cart', [
+                'paymentCart' => 'failed'
+            ]),
+            'metadata'    => [
+                'cart_id' => $userActiveCart->id,
+                'user_id' => $user->id,
+            ],
+            'payment_intent_data' => [
+                'metadata' => [
+                    'cart_id' => $userActiveCart->id,
+                    'user_id' => $user->id,
+                ],
+            ],
+        ]);
+
+        return Inertia::location($checkout->redirect());
+
 
         $userActiveCart->update([
             'alredy_paid' => true

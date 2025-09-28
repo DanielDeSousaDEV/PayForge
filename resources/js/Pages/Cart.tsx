@@ -5,22 +5,28 @@ import HomeLayout from "@/layouts/HomeLayout"
 import { PagesWithLayout } from "@/types/inertia"
 import { router } from "@inertiajs/react"
 import { ShoppingCart } from "lucide-react"
+import { useState } from "react"
 
 interface CartProps {
     cart?: Cart
 }
 
 const Cart: PagesWithLayout<CartProps> = ({cart}) => {
+    const [isLoading, setIsLoading] = useState(false)
+
     function handleProductCardClick(id: number) {
         router.visit(`/product/${id}`)
     }
 
     function handlePaidCart() {
         if (!cart) return ;
-
+        setIsLoading(true);
+        
         router.visit(`/cart/${cart.id}/pay`, {
             method: 'post'
         })
+
+        setIsLoading(false);
     }
     
     return (
@@ -45,13 +51,6 @@ const Cart: PagesWithLayout<CartProps> = ({cart}) => {
                     />
                 ))}
             </div>
-
-            {cart?.products?.map(
-                p => 
-                    <div key={p.id}>
-                        {p.name} - {p.pivot.quantity}<br />
-                    </div>
-            )}
 
             {cart && 
                 <div className="flex items-center justify-end">
