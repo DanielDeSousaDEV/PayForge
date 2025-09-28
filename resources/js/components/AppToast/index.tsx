@@ -20,7 +20,7 @@ export function AppToast() {
                 setAnimate("out")
                 // espera a animação terminar antes de desmontar
                 setTimeout(() => setVisible(false), 300)
-            }, 5000)
+            }, 7000)
         }
 
         return () => {
