@@ -85,4 +85,23 @@ class AuthController extends Controller
     {
         return Inertia::render('auth/Register');
     }
+
+    public function deleteMe ()
+    {
+        $user = Auth::user();
+
+        if (!$user) {
+            return to_route('login')
+                ->with('flash.type', FlashMessageTypeEnum::ERROR)
+                ->with('flash.message', 'Usuário não atenticado');
+        }
+        
+        $user->delete();
+
+        Auth::logout();
+
+        return to_route('login')
+            ->with('flash.type', FlashMessageTypeEnum::SUCCESS)
+            ->with('flash.message', 'Usuário deletado com sucesso');;
+    }
 }

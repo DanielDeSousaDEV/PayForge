@@ -24,6 +24,12 @@ export default function Profile({carts}: ProfileProps) {
         post('/profile')
     };
 
+    const handleDeleteMe = () => {
+        router.visit('/profile', {
+            method: 'delete'
+        })
+    }
+
     return (
         <div className="container mx-auto max-w-4xl mb-4 p-4 min-h-screen space-y-4">
 
@@ -70,14 +76,31 @@ export default function Profile({carts}: ProfileProps) {
                 </form>
             </AppCard>
 
-            
-            <h1 className="text-2xl font-semibold mb-2">Carrinhos</h1>
+            <div>
+                <h1 className="text-2xl font-semibold mb-2">Carrinhos</h1>
 
-            {carts.map(s => 
-                <>
-                    {s.alredy_paid ? 'pago' : 'não pago'} <br />
-                </>
-            )}
+                {carts.map(s => 
+                    <>
+                        {s.alredy_paid ? 'pago' : 'não pago'} <br />
+                    </>
+                )}
+            </div>
+
+            
+            <h1 className="text-2xl font-semibold mb-2">Zona de risco</h1>
+            <AppCard size="sm" className='bg-red-100 border-red-500 border-2'>
+                <h2 className="text-xl font-semibold mb-2">Deletar Perfil</h2>
+
+                <p className='lead'>
+                    Esta ação não pode ser desfeita e ocasionará a exclusão permanente de todos os seus dados.
+                </p>
+
+                <div className='flex items-center justify-end'>
+                    <Button variant='destructive' onClick={handleDeleteMe}>
+                        Deletar perfil
+                    </Button>
+                </div>
+            </AppCard>
         </div>
     );
 }

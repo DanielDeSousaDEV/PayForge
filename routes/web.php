@@ -31,6 +31,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/profile', [AuthController::class, 'showProfile'])->name('profile');
     Route::post('/profile', [AuthController::class, 'updateProfile'])->name('profile.update');
+    Route::delete('/profile', [AuthController::class, 'deleteMe'])->name('profile.delete');
 
     Route::get('/admin/products', [ProductController::class, 'showProductsPanel'])->name('admin.products');
     Route::post('/admin/products', [ProductController::class, 'storeProduct'])->name('admin.products.store');
