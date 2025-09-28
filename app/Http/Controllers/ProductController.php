@@ -149,8 +149,8 @@ class ProductController extends Controller
 
             // Atualização do produto do sistema
             $product->update([
-                'stripe_product_id' => $stripeProduct,
-                'stripe_price_id' => $stripePrice,
+                'stripe_product_id' => $stripeProduct->id,
+                'stripe_price_id' => $stripePrice->id,
             ]);
 
             // Adiciona mensagem na sessão sem redirecionar
