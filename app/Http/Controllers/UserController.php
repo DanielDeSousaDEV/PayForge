@@ -37,7 +37,6 @@ class UserController extends Controller
 
     function storeUser (StoreUserRequest $request)
     {
-        Log::alert('here');
         $user = Auth::user();
 
         if (!$user) {
