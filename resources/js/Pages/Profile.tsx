@@ -81,7 +81,7 @@ export default function Profile({carts}: ProfileProps) {
 
                 {carts.map(s => 
                     <>
-                        {s.alredy_paid ? 'pago' : 'não pago'} <br />
+                        {s.id} - {s.alredy_paid ? 'pago' : 'não pago'} / {s.created_at} <br />
                     </>
                 )}
             </div>
