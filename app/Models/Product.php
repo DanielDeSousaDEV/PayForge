@@ -18,12 +18,19 @@ class Product extends Model
         'description',
         'preview_url',
         'images',
+        'stripe_product_id',
+        'stripe_price_id'
     ];
 
     protected $casts = [
         'price' => 'decimal:2',
         'rating' => 'decimal:1',
         'images' => 'array'
+    ];
+
+    protected $hidden = [
+        'stripe_product_id',
+        'stripe_price_id'
     ];
 
     public function carts(): BelongsToMany

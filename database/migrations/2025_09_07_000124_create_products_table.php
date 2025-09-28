@@ -23,6 +23,13 @@ return new class extends Migration
                 ->nullable();
             $table->json('images')
                 ->nullable();
+
+            // Stripe Columns
+            $table->string('stripe_product_id')
+                ->nullable();
+            $table->string('stripe_price_id')
+                ->nullable();
+
             $table->timestamps();
         });
     }
