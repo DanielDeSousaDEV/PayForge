@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\FlashMessageTypeEnum;
+use App\Http\Requests\Product\BuyProductRequest;
 use App\Http\Requests\Product\StoreProductRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -41,6 +42,50 @@ class ProductController extends Controller
             'product' => $product,
             'recomendedProducts' => $recomendedProducts,
         ]);
+    }
+
+
+    function buyProduct(BuyProductRequest $request, $id)
+    {
+        $user = Auth::user();
+
+        if (!$user) {
+            return to_route('login')
+                ->with('flash.type', FlashMessageTypeEnum::ERROR)
+                ->with('flash.message', 'Usuário não atenticado');
+        }
+
+        $product = Product::find($id);
+
+        if (!$user) {
+            return back()
+                ->with('flash.type', FlashMessageTypeEnum::ERROR)
+                ->with('flash.message', 'Não foi possível achar o produto');
+        }
+        
+        $stripeProductsData = [
+            $product->stripe_price_id => $request['quantity']
+        ];
+
+
+        $checkout = $user->checkout($stripeProductsData, [
+            'success_url' => route('home', [
+                'paymentProduct' => 'success'
+            ]),
+            'cancel_url' => route('home', [
+                'paymentProduct' => 'failed'
+            ]),
+            'metadata'    => [
+                'user_id' => $user->id,
+            ],
+            'payment_intent_data' => [
+                'metadata' => [
+                    'user_id' => $user->id,
+                ],
+            ],
+        ]);
+
+        return Inertia::location($checkout->redirect());
     }
 
     function showProductsPanel ()
