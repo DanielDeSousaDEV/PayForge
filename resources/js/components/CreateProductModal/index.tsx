@@ -42,11 +42,11 @@ export function CreateProductModal({open, onOpenChange}: CreateProductModalProps
     function handleSubmit(e: FormEvent) {
         e.preventDefault()
 
-        post('/admin/products');
-
-        if (!errors) {
-            onOpenChange(false);
-        }
+        post('/admin/products', {
+            onSuccess: () => {
+                onOpenChange(false);
+            }
+        });
     }
 
     return (

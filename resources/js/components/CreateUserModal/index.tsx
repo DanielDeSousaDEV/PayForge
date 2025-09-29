@@ -41,11 +41,11 @@ export function CreateUserModal({open, onOpenChange}: CreateUserModalProps) {
     function handleSubmit(e: FormEvent) {
         e.preventDefault()
 
-        post('/admin/users');
-
-        if (!errors) {
-            onOpenChange(false);
-        }
+        post('/admin/users', {
+            onSuccess: () => {
+                onOpenChange(false);
+            }
+        });
     }
 
     return (
