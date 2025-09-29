@@ -32,38 +32,38 @@ class DatabaseSeeder extends Seeder
 
         $users = User::all();
 
-        $products = Product::factory(10)
-            ->create();
+        // $products = Product::factory(10)
+        //     ->create();
 
-        $users->each(function ($user) use ($products) {
-            $totalOfCarts = rand(2, 5);
+        // $users->each(function ($user) use ($products) {
+        //     $totalOfCarts = rand(2, 5);
 
-            $carts = Cart::factory($totalOfCarts)
-                ->create([
-                    'user_id' => $user->id,
-                    'alredy_paid' => true
-                ]);
+        //     $carts = Cart::factory($totalOfCarts)
+        //         ->create([
+        //             'user_id' => $user->id,
+        //             'alredy_paid' => true
+        //         ]);
 
-            $lastCart = $carts->last();
+        //     $lastCart = $carts->last();
 
-            $lastCart->update([
-                'alredy_paid' => fake()->boolean(25)
-            ]);
+        //     $lastCart->update([
+        //         'alredy_paid' => fake()->boolean(25)
+        //     ]);
             
-            $carts->each(function ($cart) use ($products) {
-                $totalOfProducts = rand(2, 5);
+        //     $carts->each(function ($cart) use ($products) {
+        //         $totalOfProducts = rand(2, 5);
 
-                $syncProductsData = $products->random($totalOfProducts)->mapWithKeys(function ($product) {
-                    return [
-                        $product->id => [
-                            'quantity' => rand(2, 6)
-                        ]
-                    ];
-                });
+        //         $syncProductsData = $products->random($totalOfProducts)->mapWithKeys(function ($product) {
+        //             return [
+        //                 $product->id => [
+        //                     'quantity' => rand(2, 6)
+        //                 ]
+        //             ];
+        //         });
 
-                $cart->products()->sync($syncProductsData);
-            });
-        });
+        //         $cart->products()->sync($syncProductsData);
+        //     });
+        // });
         
     }
 }
