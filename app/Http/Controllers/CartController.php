@@ -146,14 +146,5 @@ class CartController extends Controller
         ]);
 
         return Inertia::location($checkout->redirect());
-
-
-        $userActiveCart->update([
-            'alredy_paid' => true
-        ]);
-
-        return back()
-            ->with('flash.type', FlashMessageTypeEnum::SUCCESS)
-            ->with('flash.message', 'Pago com sucesso');
     }
 }
