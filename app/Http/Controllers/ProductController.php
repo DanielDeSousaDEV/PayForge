@@ -179,7 +179,7 @@ class ProductController extends Controller
             $stripeProduct = $this->StripeClient->products->create([
                 'name' => $productData['name'],
                 'description' => $productData['description'] ?? '',
-                'images' => $imagesUrls,
+                // 'images' => $imagesUrls, // Será adcionar em futuras versões
                 'metadata' => [
                     'system_id' => $product->id
                 ]
