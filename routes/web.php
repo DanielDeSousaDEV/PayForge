@@ -25,7 +25,8 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
 
-    Route::get('/product/{id}', [ProductController::class, 'buyProduct'])->name('product');
+    Route::get('/product/{id}', [ProductController::class, 'productDetails'])->name('product');
+    Route::post('/product/{id}/buy', [ProductController::class, 'buyProduct'])->name('product.buy');
 
     Route::get('/cart', [CartController::class, 'show'])->name('cart');
     Route::post('/cart/{id}/add', [CartController::class, 'addProduct'])->name('cart.add');

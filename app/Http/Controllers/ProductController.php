@@ -21,7 +21,7 @@ class ProductController extends Controller
         $this->StripeClient = new StripeClient(config('cashier.secret'));
     }
 
-    function buyProduct (int $id)
+    function productDetails (int $id)
     {
         $product = Product::find($id);
 
@@ -37,7 +37,7 @@ class ProductController extends Controller
                 ->limit(5)
                 ->get();
 
-        return Inertia::render('BuyProduct', [
+        return Inertia::render('ProductDetails', [
             'product' => $product,
             'recomendedProducts' => $recomendedProducts,
         ]);

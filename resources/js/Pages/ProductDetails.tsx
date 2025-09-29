@@ -1,5 +1,6 @@
 import { AddProductToCartModal } from "@/components/AddProductToCartModal"
 import AppCard from "@/components/AppCard"
+import { BuyProductModal } from "@/components/BuyProductModal"
 import HomeTitle from "@/components/HomeTitle"
 import { ProductCarousel } from "@/components/ProductCarousel"
 import { ProductsDisplay } from "@/components/ProductsDisplay"
@@ -8,16 +9,21 @@ import { Button } from "@/components/ui/button"
 import { PagesWithLayout } from "@/types/inertia"
 import { useState } from "react"
 
-interface BuyProductProps {
+interface ProductDetaisProps {
     product: Product,
     recomendedProducts: Product[],
 }
 
-const BuyProduct: PagesWithLayout<BuyProductProps> = ({product, recomendedProducts}) => {
-    const [isOpenModal, setIsOpenModal] = useState(false)
+const ProductDetais: PagesWithLayout<ProductDetaisProps> = ({product, recomendedProducts}) => {
+    const [isOpenAddProductToCartModal, setIsOpenAddProductToCartModal] = useState(false)
+    const [isOpenBuyProductModal, setIsOpenBuyProductModal] = useState(false)
 
     function handleAddToCart() {
-        setIsOpenModal(true)
+        setIsOpenAddProductToCartModal(true)
+    }
+
+    function handleBuyProduct() {
+        setIsOpenBuyProductModal(true)
     }
 
     return (
@@ -51,7 +57,11 @@ const BuyProduct: PagesWithLayout<BuyProductProps> = ({product, recomendedProduc
                             </div>
 
                             <div className="space-y-2">
-                                <Button size='lg' className="w-full">
+                                <Button 
+                                    size='lg' 
+                                    className="w-full"
+                                    onClick={handleBuyProduct}
+                                >
                                     Comprar
                                 </Button>
                                 <Button 
@@ -80,13 +90,19 @@ const BuyProduct: PagesWithLayout<BuyProductProps> = ({product, recomendedProduc
                 handleProductCardClick={prod => console.log(prod)}
             />
 
+            <BuyProductModal
+                product={product}
+                onOpenChange={setIsOpenBuyProductModal}
+                open={isOpenBuyProductModal}
+            />
+
             <AddProductToCartModal
                 product={product}
-                onOpenChange={setIsOpenModal}
-                open={isOpenModal}
+                onOpenChange={setIsOpenAddProductToCartModal}
+                open={isOpenAddProductToCartModal}
             />
         </div>
     )
 }
 
-export default BuyProduct;
+export default ProductDetais;
