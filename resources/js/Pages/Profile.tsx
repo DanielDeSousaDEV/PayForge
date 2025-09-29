@@ -5,6 +5,8 @@ import { Button } from '@/components/ui/button';
 import AppCard from '@/components/AppCard';
 import { Label } from '@/components/ui/label';
 import { FormErro } from '@/components/FormErro';
+import { LogOut, Power } from 'lucide-react';
+import { useMediaQuery } from 'usehooks-ts';
 
 interface ProfileProps{
     carts: Cart[]
@@ -13,6 +15,7 @@ interface ProfileProps{
 export default function Profile({carts}: ProfileProps) {
     const { user } = usePage().props;
     const [isEditable, setIsEditable] = useState(false);
+    const isMobile = useMediaQuery('(max-width: 767px)');
 
     const {post, data, errors, setData, reset} = useForm({
         name: user?.name ?? '',
@@ -30,10 +33,26 @@ export default function Profile({carts}: ProfileProps) {
         })
     }
 
-    return (
-        <div className="container mx-auto max-w-4xl mb-4 p-4 min-h-screen space-y-4">
+    const handleLogout = () => {
+        router.visit('/logout')
+    }
 
-            <h1 className="text-2xl font-semibold mb-2">Perfil</h1>
+    return (
+        <div className="container mx-auto max-w-4xl mb-8 p-4 min-h-screen space-y-4">
+
+            <div className='flex items-center justify-between'>
+                <h1 className="text-2xl font-semibold mb-2">Perfil</h1>
+
+                <Button
+                    size={isMobile ? 'icon' : 'default'}
+                    onClick={handleLogout}
+                >
+                    {isMobile
+                        ? <Power className="stroke-3"/>
+                        : 'Deslogar'
+                    }
+                </Button>
+            </div>
 
             <AppCard size="sm">
                 <h2 className="text-xl font-semibold mb-2">Informações</h2>

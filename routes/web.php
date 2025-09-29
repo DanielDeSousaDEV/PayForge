@@ -22,8 +22,9 @@ Route::middleware('guest')->group(function () {
     Route::post('/register', [AuthController::class, 'register'])->name('register.store');
 });
 
-
 Route::middleware('auth')->group(function () {
+    Route::get('/logout', fn () => Auth::logout());
+
     Route::get('/', [HomeController::class, 'index'])->name('home');
 
     Route::get('/product/{id}', [ProductController::class, 'productDetails'])->name('product');
