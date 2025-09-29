@@ -23,7 +23,7 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'min:2', 'max:255'],
-            'email' => ['required', 'string', 'email', 'min:2', 'max:255'],
+            'email' => ['required', 'string', 'email', 'min:2', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'min:2', 'max:255'],
         ];
     }
@@ -41,6 +41,7 @@ class StoreUserRequest extends FormRequest
             'email.email'    => 'O e-mail informado não é válido.',
             'email.min'      => 'O e-mail precisa ter pelo menos :min caracteres.',
             'email.max'      => 'O e-mail não pode ter mais que :max caracteres.',
+            'email.unique'   => 'O e-mail já está cadastrado no sistema.',
 
             'password.required' => 'A senha é obrigatória.',
             'password.string'   => 'A senha deve ser um texto.',
