@@ -43,7 +43,9 @@ export function CreateUserModal({open, onOpenChange}: CreateUserModalProps) {
 
         post('/admin/users');
 
-        onOpenChange(false);
+        if (!errors) {
+            onOpenChange(false);
+        }
     }
 
     return (

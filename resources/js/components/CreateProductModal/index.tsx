@@ -44,7 +44,9 @@ export function CreateProductModal({open, onOpenChange}: CreateProductModalProps
 
         post('/admin/products');
 
-        onOpenChange(false);
+        if (!errors) {
+            onOpenChange(false);
+        }
     }
 
     return (
