@@ -147,7 +147,15 @@ _Siga o passo a passo abaixo para configurar o projeto em seu ambiente local._
    ```sh
    composer dev
    ```
-10. Faça login com um usuário Admin
+10. Faça login com a CLI do Stripe (somente caso não tenha feito)
+   ```sh
+   ./stripe login
+   ```
+11. Adicione um ouvidor de evento do Stripe Local
+   ```sh
+   ./stripe listen --forward-to localhost:8000/stripe/webhook
+   ```
+12. Faça login com um usuário Admin
    ```
    email      =>   gabriel.dev@gmail.com,
    password   =>   Admin@123,
