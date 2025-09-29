@@ -51,9 +51,5 @@ Route::middleware('auth')->group(function () {
 });
 
 
-
+// Webhook
 Route::post('/stripe/webhook', [StripeWebhookController::class, 'handleWebhook'])->name('stripe.webhook');
-
-
-Route::get('/log', fn () => Auth::loginUsingId(5));
-Route::get('/logout', fn () => Auth::logout());

@@ -12,7 +12,6 @@ interface HomeProps {
 export default function Home({products, productsMoreSold}: HomeProps) {
 
     function handleProductCardClick (product: Product) {
-        console.log(product)
         router.visit('/product/' + product.id)
     }
 
