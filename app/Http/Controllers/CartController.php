@@ -8,6 +8,7 @@ use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class CartController extends Controller
@@ -46,6 +47,8 @@ class CartController extends Controller
     function addProduct(AddProductToCartRequest $request, $id)
     {
         try {
+            DB::beginTransaction();
+
             $user = Auth::user();
 
             $product = Product::find($id);
@@ -85,11 +88,15 @@ class CartController extends Controller
                 $product->id => ['quantity' => $productQuantity]
             ]);
 
+            DB::commit();
+
             return to_route('cart')
                 ->with('flash.type', FlashMessageTypeEnum::SUCCESS)
                 ->with('flash.message', 'Produto adicionado com sucesso.');;
 
         } catch (\Throwable $th) {
+            DB::rollBack();
+
             return to_route('home')
                 ->with('flash.type', FlashMessageTypeEnum::ERROR)
                 ->with('flash.message', 'Tente novamente mais tarde'. $th->getMessage());
@@ -99,52 +106,66 @@ class CartController extends Controller
 
     function payCart()
     {
-        $user = Auth::user();
+        try {
+            DB::beginTransaction();
 
-        if (!$user) {
-            return to_route('login')
-                ->with('flash.type', FlashMessageTypeEnum::ERROR)
-                ->with('flash.message', 'Usuário não atenticado');
-        }
-        
-        $userActiveCart = Cart::query()
-                ->with('products')
-                ->where('user_id', $user->id)
-                ->where('alredy_paid', false)
-                ->first();
-
-        if ($userActiveCart->products->count() < 1) {
-            back()
-                ->with('flash.type', FlashMessageTypeEnum::ERROR)
-                ->with('flash.message', 'Você não pode pagar um carrinho vazio');
-        }
-
-        $stripeProductsData = [];
-
-        foreach ($userActiveCart->products as $product) {
-            $stripeProductsData[$product->stripe_price_id] = $product->pivot->quantity;
-        }
-
-
-        $checkout = $user->checkout($stripeProductsData, [
-            'success_url' => route('cart', [
-                'paymentCart' => 'success'
-            ]),
-            'cancel_url' => route('cart', [
-                'paymentCart' => 'failed'
-            ]),
-            'metadata'    => [
-                'cart_id' => $userActiveCart->id,
-                'user_id' => $user->id,
-            ],
-            'payment_intent_data' => [
-                'metadata' => [
+            $user = Auth::user();
+    
+            if (!$user) {
+                return to_route('login')
+                    ->with('flash.type', FlashMessageTypeEnum::ERROR)
+                    ->with('flash.message', 'Usuário não atenticado');
+            }
+            
+            $userActiveCart = Cart::query()
+                    ->with('products')
+                    ->where('user_id', $user->id)
+                    ->where('alredy_paid', false)
+                    ->first();
+    
+            if ($userActiveCart->products->count() < 1) {
+                back()
+                    ->with('flash.type', FlashMessageTypeEnum::ERROR)
+                    ->with('flash.message', 'Você não pode pagar um carrinho vazio');
+            }
+    
+            $stripeProductsData = [];
+    
+            foreach ($userActiveCart->products as $product) {
+                $stripeProductsData[$product->stripe_price_id] = $product->pivot->quantity;
+            }
+    
+    
+            $checkout = $user->checkout($stripeProductsData, [
+                'success_url' => route('cart', [
+                    'paymentCart' => 'success'
+                ]),
+                'cancel_url' => route('cart', [
+                    'paymentCart' => 'failed'
+                ]),
+                'metadata'    => [
                     'cart_id' => $userActiveCart->id,
                     'user_id' => $user->id,
                 ],
-            ],
-        ]);
+                'payment_intent_data' => [
+                    'metadata' => [
+                        'cart_id' => $userActiveCart->id,
+                        'user_id' => $user->id,
+                    ],
+                ],
+            ]);
+            
+            DB::commit();
 
-        return Inertia::location($checkout->redirect());
+            return Inertia::location($checkout->redirect());
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            
+            // Adiciona mensagem na sessão sem redirecionar
+            session()->flash('flash.type', FlashMessageTypeEnum::ERROR);
+            session()->flash('flash.message', 'Não foi possível criar o pagar o carrinho!'. $th->getMessage() . '/'. $th->getLine() . '/' . $th->getFile());
+    
+            return back();
+        }
     }
 }

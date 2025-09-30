@@ -9,6 +9,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Stripe\StripeClient;
@@ -47,45 +48,53 @@ class ProductController extends Controller
 
     function buyProduct(BuyProductRequest $request, $id)
     {
-        $user = Auth::user();
-
-        if (!$user) {
-            return to_route('login')
-                ->with('flash.type', FlashMessageTypeEnum::ERROR)
-                ->with('flash.message', 'Usuário não atenticado');
-        }
-
-        $product = Product::find($id);
-
-        if (!$user) {
-            return back()
-                ->with('flash.type', FlashMessageTypeEnum::ERROR)
-                ->with('flash.message', 'Não foi possível achar o produto');
-        }
-        
-        $stripeProductsData = [
-            $product->stripe_price_id => $request['quantity']
-        ];
-
-
-        $checkout = $user->checkout($stripeProductsData, [
-            'success_url' => route('home', [
-                'paymentProduct' => 'success'
-            ]),
-            'cancel_url' => route('home', [
-                'paymentProduct' => 'failed'
-            ]),
-            'metadata'    => [
-                'user_id' => $user->id,
-            ],
-            'payment_intent_data' => [
-                'metadata' => [
+        try {
+            $user = Auth::user();
+    
+            if (!$user) {
+                return to_route('login')
+                    ->with('flash.type', FlashMessageTypeEnum::ERROR)
+                    ->with('flash.message', 'Usuário não atenticado');
+            }
+    
+            $product = Product::find($id);
+    
+            if (!$user) {
+                return back()
+                    ->with('flash.type', FlashMessageTypeEnum::ERROR)
+                    ->with('flash.message', 'Não foi possível achar o produto');
+            }
+            
+            $stripeProductsData = [
+                $product->stripe_price_id => $request['quantity']
+            ];
+    
+    
+            $checkout = $user->checkout($stripeProductsData, [
+                'success_url' => route('home', [
+                    'paymentProduct' => 'success'
+                ]),
+                'cancel_url' => route('home', [
+                    'paymentProduct' => 'failed'
+                ]),
+                'metadata'    => [
                     'user_id' => $user->id,
                 ],
-            ],
-        ]);
-
-        return Inertia::location($checkout->redirect());
+                'payment_intent_data' => [
+                    'metadata' => [
+                        'user_id' => $user->id,
+                    ],
+                ],
+            ]);
+    
+            return Inertia::location($checkout->redirect());
+        } catch (\Throwable $th) {
+            // Adiciona mensagem na sessão sem redirecionar
+            session()->flash('flash.type', FlashMessageTypeEnum::ERROR);
+            session()->flash('flash.message', 'Não foi possível comprar o produto!'. $th->getMessage() . '/'. $th->getLine() . '/' . $th->getFile());
+    
+            return back();
+        }
     }
 
     function showProductsPanel ()
@@ -135,6 +144,7 @@ class ProductController extends Controller
                 'images'
             ]);
             
+            DB::beginTransaction();
             
             // Criação no sistema
             $product = Product::create($productData);
@@ -197,12 +207,16 @@ class ProductController extends Controller
                 'stripe_price_id' => $stripePrice->id,
             ]);
 
+            DB::commit();
+
             // Adiciona mensagem na sessão sem redirecionar
             session()->flash('flash.type', FlashMessageTypeEnum::SUCCESS);
             session()->flash('flash.message', 'Produto criado com sucesso!');
-    
+
             return back();
         } catch (\Throwable $th) {
+            DB::rollBack();
+
             // Adiciona mensagem na sessão sem redirecionar
             session()->flash('flash.type', FlashMessageTypeEnum::ERROR);
             session()->flash('flash.message', 'Não foi possível criar o produto!'. $th->getMessage() . '/'. $th->getLine() . '/' . $th->getFile());
@@ -222,32 +236,38 @@ class ProductController extends Controller
         }
 
         try {
-    
-            // Desativa os preços
-            $stripePrices = $this->StripeClient->prices->all([
-                'product' => $product->stripe_product_id,
-            ]);
+            DB::beginTransaction();
 
-            foreach ($stripePrices->data as $price) {
-                $this->StripeClient->prices->update($price->id, [
-                    'active' => false    
+            if ($product->stripe_product_id && $product->stripe_product_id) {
+                // Desativa os preços
+                $stripePrices = $this->StripeClient->prices->all([
+                    'product' => $product->stripe_product_id,
+                ]);
+    
+                foreach ($stripePrices->data as $price) {
+                    $this->StripeClient->prices->update($price->id, [
+                        'active' => false    
+                    ]);
+                }
+
+                // Desativa o produto
+                $this->StripeClient->products->update($product->stripe_product_id, [
+                    'active' => false
                 ]);
             }
 
-
-            // Desativa o produto
-            $this->StripeClient->products->update($product->stripe_product_id, [
-                'active' => false
-            ]);
-
-
             $product->delete();
+
+            DB::commit();
+
     
             return back()   
                 ->with('flash.type', FlashMessageTypeEnum::SUCCESS)
                 ->with('flash.message', 'Produto excluido com sucesso!');
 
         } catch (\Throwable $th) {
+            DB::rollBack();
+
             return back()   
                 ->with('flash.type', FlashMessageTypeEnum::ERROR)
                 ->with('flash.message', 'Ocorreu um erro ao deletar o produto!');
