@@ -17,7 +17,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/DanielDeSousaDEV/PayForge">
-    <img src="public/favicon.svg" alt="Logo" width="80" height="80">
+    <img src="public/favicon.svg" alt="Logo" width="100" height="100">
   </a>
 
   <h3 align="center">PayForge</h3>
@@ -98,68 +98,68 @@ Certifique-se de ter as seguintes ferramentas instaladas e configuradas:
 
 _Siga o passo a passo abaixo para configurar o projeto em seu ambiente local._
 
-1. Coloque sua conta do Stripe em modo de teste [Documentação](https://docs.stripe.com/testing)
+1. Coloque sua conta do **Stripe em modo de teste** [Documentação](https://docs.stripe.com/testing)
 2. Clone o repositório
-   ```sh
-   git clone https://github.com/DanielDeSousaDEV/PayForge.git
-   ```
+      ```sh
+      git clone https://github.com/DanielDeSousaDEV/PayForge.git
+      ```
 3. Instale os pacote do NPM
-   ```sh
-   npm install
-   ```
+      ```sh
+      npm install
+      ```
 4. Instale os pacote do Composer
-   ```sh
-   composer install
-   ```
+      ```sh
+      composer install
+      ```
 5. Copie o arquivo `.env` e configure as seguintes variáveis de ambiente
-   ```
-   DB_CONNECTION=sqlite
-   DB_HOST=127.0.0.1
-   DB_PORT=3306
-   DB_DATABASE=laravel
-   DB_USERNAME=root
-   DB_PASSWORD=
+      ```
+      DB_CONNECTION=sqlite
+      DB_HOST=127.0.0.1
+      DB_PORT=3306
+      DB_DATABASE=laravel
+      DB_USERNAME=root
+      DB_PASSWORD=
 
-   MAIL_MAILER=log
-   MAIL_SCHEME=null
-   MAIL_HOST=127.0.0.1
-   MAIL_PORT=2525
-   MAIL_USERNAME=null
-   MAIL_PASSWORD=null
+      MAIL_MAILER=log
+      MAIL_SCHEME=null
+      MAIL_HOST=127.0.0.1
+      MAIL_PORT=2525
+      MAIL_USERNAME=null
+      MAIL_PASSWORD=null
 
-   STRIPE_KEY=your-stripe-key
-   STRIPE_SECRET=your-stripe-secret
-   STRIPE_WEBHOOK_SECRET=your-stripe-webhook-secret
-   ```
+      STRIPE_KEY=your-stripe-key
+      STRIPE_SECRET=your-stripe-secret
+      STRIPE_WEBHOOK_SECRET=your-stripe-webhook-secret
+      ```
 6. Crie a chave do laravel
-   ```sh
-   php artisan key:generate
-   ```
+      ```sh
+      php artisan key:generate
+      ```
 7. Execute as migrations
-   ```sh
-   php artisan migrate
-   ```
+      ```sh
+      php artisan migrate
+      ```
 8. Execute o seeder
-   ```sh
-   php artisan db:seed
-   ```
+      ```sh
+      php artisan db:seed
+      ```
 9. Execute o projeto
-   ```sh
-   composer dev
-   ```
+      ```sh
+      composer dev
+      ```
 10. Faça login com a CLI do Stripe (somente caso não tenha feito)
-   ```sh
-   ./stripe login
-   ```
+      ```sh
+      ./stripe login
+      ```
 11. Adicione um ouvidor de evento do Stripe Local
-   ```sh
-   ./stripe listen --forward-to localhost:8000/stripe/webhook
-   ```
+      ```sh
+      ./stripe listen --forward-to localhost:8000/stripe/webhook
+      ```
 12. Faça login com um usuário Admin
-   ```
-   email      =>   gabriel.dev@gmail.com,
-   password   =>   Admin@123,
-   ```
+      ```
+      email      =>   gabriel.dev@gmail.com,
+      password   =>   Admin@123,
+      ```
 
 <p align="right">(<a href="#readme-top">Voltar para o topo</a>)</p>
 
