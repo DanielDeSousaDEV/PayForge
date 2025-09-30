@@ -16,8 +16,8 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  <a href="https://github.com/DanielDeSousaDEV/PayForge">
+    <img src="public/favicon.svg" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">PayForge</h3>
@@ -25,9 +25,9 @@
   <p align="center">
     Um e-commerce simples, seguro e confiável! 
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
+    <a href="https://github.com/DanielDeSousaDEV/PayForge/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
     &middot;
-    <a href="https://github.com/othneildrew/Best-README-Template/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
+    <a href="https://github.com/DanielDeSousaDEV/PayForge/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
   </p>
 </div>
 
