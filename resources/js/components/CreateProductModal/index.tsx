@@ -79,7 +79,6 @@ export function CreateProductModal({open, onOpenChange}: CreateProductModalProps
                                 name="price" 
                                 value={data.price} 
                                 min={0.01}
-                                accept="image/png,image/jpeg"
                                 onChange={e => setData('price', Number(e.target.value ?? 0))}
                             />
                             <FormErro>{errors.price}</FormErro>
@@ -101,10 +100,11 @@ export function CreateProductModal({open, onOpenChange}: CreateProductModalProps
                                 id="images" 
                                 type="file" 
                                 name="images" 
+                                accept="image/png,image/jpeg"
                                 multiple
                                 onChange={e => setData('images', e.target.files ? Array.from(e.target.files) : [])}
                             />
-                            <FormErro>{errors.images}</FormErro>
+                            <FormErro>{errors.images}</FormErro> // fazer o text
                         </div>
                         <div className="grid gap-3">
                             <Label htmlFor="description">Descrição</Label>
