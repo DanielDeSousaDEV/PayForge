@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\PaymentSuccessful;
 use App\Models\Cart;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -46,6 +47,26 @@ class StripeWebhookController extends WebhookController
                 Mail::to($user)
                     ->queue(new PaymentSuccessful($cart, $receiptUrl));
             }
+        }
+    }
+
+    function handleProductDeleted($payload)
+    {
+        $productId = $payload['data']['object']['metadata']['system_id'];
+
+        if (!$productId) {
+            return;
+        }
+
+        $product = Product::find($productId);
+        
+        if ($product) {
+            $product->delete();
+
+            Log::info('Produto deletado', [
+                'product_system_id' => $product->id ?? 'N/A',
+                'product_stripe_id' => $product->stripe_product_id ?? 'N/A',
+            ]);
         }
     }
 }
