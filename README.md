@@ -111,7 +111,7 @@ _Siga o passo a passo abaixo para configurar o projeto em seu ambiente local._
       ```sh
       composer install
       ```
-5. Copie o arquivo `.env` e configure as seguintes variáveis de ambiente
+5. Copie o arquivo `.env.example` e configure as seguintes variáveis de ambiente
       ```
       DB_CONNECTION=sqlite
       DB_HOST=127.0.0.1
