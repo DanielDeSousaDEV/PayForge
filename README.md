@@ -120,16 +120,16 @@ _Siga o passo a passo abaixo para configurar o projeto em seu ambiente local._
    DB_USERNAME=root
    DB_PASSWORD=
 
-   MAIL_MAILER=smtp
+   MAIL_MAILER=log
    MAIL_SCHEME=null
-   MAIL_HOST=sandbox.smtp.mailtrap.io
+   MAIL_HOST=127.0.0.1
    MAIL_PORT=2525
-   MAIL_USERNAME=b734bddbeb512d
-   MAIL_PASSWORD=c1e8ca52e4e713
+   MAIL_USERNAME=null
+   MAIL_PASSWORD=null
 
-   STRIPE_KEY=pk_test_51QnphpFosj2jZOBBwczCRZYsj92SLrb8TK6dVD8IFXZeQ5QDo9w2FuQpcwI2hXcdzbGEtAVHTpj6D0n2pOTWrFFj004b7lN5KQ
-   STRIPE_SECRET=sk_test_51QnphpFosj2jZOBB0Kv9k4JQR9DqzWK0Ycx9oYkxSMTFEvQsdtRHIJqv3GM6e6SNLGInzqk6FTkQJy1feROYjyeB00MJmgYQnD
-   STRIPE_WEBHOOK_SECRET=whsec_5fcb2e5f36928fd014265b78ca5b762d15218d16970aa217b33012d23b3c7292
+   STRIPE_KEY=your-stripe-key
+   STRIPE_SECRET=your-stripe-secret
+   STRIPE_WEBHOOK_SECRET=your-stripe-webhook-secret
    ```
 6. Crie a chave do laravel
    ```sh
