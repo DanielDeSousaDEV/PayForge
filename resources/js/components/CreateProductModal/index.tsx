@@ -39,6 +39,11 @@ export function CreateProductModal({open, onOpenChange}: CreateProductModalProps
         description: '',
     })
 
+    // Padronizando o texto de erro do images
+    const imagesError = Object.entries(errors).find(([key]) =>
+        key.startsWith("images.")
+    )?.[1]
+
     function handleSubmit(e: FormEvent) {
         e.preventDefault()
 
@@ -104,7 +109,7 @@ export function CreateProductModal({open, onOpenChange}: CreateProductModalProps
                                 multiple
                                 onChange={e => setData('images', e.target.files ? Array.from(e.target.files) : [])}
                             />
-                            <FormErro>{errors.images}</FormErro> // fazer o text
+                            <FormErro>{imagesError}</FormErro>
                         </div>
                         <div className="grid gap-3">
                             <Label htmlFor="description">Descrição</Label>
