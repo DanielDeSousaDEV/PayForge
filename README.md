@@ -147,19 +147,23 @@ _Siga o passo a passo abaixo para configurar o projeto em seu ambiente local._
       ```sh
       php artisan db:seed
       ```
-10. Execute o projeto
+10. Crie o link simbolico
+      ```sh
+      php artisan storage:link
+      ```
+11. Execute o projeto
       ```sh
       composer dev
       ```
-11. Faça login com a CLI do Stripe (somente caso não tenha feito)
+12. Faça login com a CLI do Stripe (somente caso não tenha feito)
       ```sh
       ./stripe login
       ```
-12. Adicione um ouvidor de evento do Stripe Local
+13. Adicione um ouvidor de evento do Stripe Local
       ```sh
       ./stripe listen --forward-to localhost:8000/stripe/webhook
       ```
-13. Faça login com um usuário Admin
+14. Faça login com um usuário Admin
       ```
       email      =>   gabriel.dev@gmail.com,
       password   =>   Admin@123,
