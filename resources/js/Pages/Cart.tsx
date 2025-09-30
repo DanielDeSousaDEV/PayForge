@@ -31,7 +31,17 @@ const Cart: PagesWithLayout<CartProps> = ({cart}) => {
     
     return (
         <div className="container mx-auto mb-4 p-4 min-h-screen">
-            <HomeTitle>Produtos no carrinho</HomeTitle>
+            <div className="flex items-center justify-between">
+                <HomeTitle>Produtos no carrinho</HomeTitle>
+                
+                {cart && 
+                    <div className="flex items-center justify-end">
+                        <Button onClick={handlePaidCart}>
+                            Pagar o carrinho
+                        </Button>
+                    </div>
+                }
+            </div>
 
             {!cart && 
                 <div className="flex flex-col items-center justify-center gap-4 text-gray-700 p-4 max-w-lg mt-8 mx-auto rounded-lg border-2 bg-gray-200 border-gray-700">
@@ -51,14 +61,6 @@ const Cart: PagesWithLayout<CartProps> = ({cart}) => {
                     />
                 ))}
             </div>
-
-            {cart && 
-                <div className="flex items-center justify-end">
-                    <Button onClick={handlePaidCart}>
-                        Pagar o carrinho
-                    </Button>
-                </div>
-            }
 
         </div>
     )
