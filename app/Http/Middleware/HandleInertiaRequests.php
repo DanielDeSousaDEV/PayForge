@@ -40,6 +40,9 @@ class HandleInertiaRequests extends Middleware
             'user' => fn () => $request->user()
                 ? $request->user()->except('password', 'remember_token')
                 : null, 
+            'productQuantityInCart' => fn () => $request->user()
+                ? $request->user()->carts()->count()
+                : null, 
             'flash' => [
                 'type' => fn () => $request->session()->get('flash.type'),
                 'message' => fn () => $request->session()->get('flash.message')

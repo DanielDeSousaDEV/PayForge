@@ -16,7 +16,7 @@ import { cn } from "@/lib/utils";
 import { ProtectedAdminView } from "../ProtectedAdminView";
 
 const Navbar: PagesWithLayout = () => {
-    const { url } = usePage();
+    const { url, props: {productQuantityInCart} } = usePage();
 
     return (
         <header className="bg-[var(--color-surface)] border-b border-[var(--color-border)] sticky top-0 z-20 backdrop-blur-lg bg-opacity-90">
@@ -91,9 +91,12 @@ const Navbar: PagesWithLayout = () => {
                                             : "stroke-[var(--color-text-muted)]"
                                     )}
                                 />
-                                <span className="absolute -top-1 -right-1 bg-[var(--color-danger)] text-[10px] font-bold text-white rounded-full px-1.5">
-                                    3
-                                </span>
+
+                                {productQuantityInCart && 
+                                    <span className="absolute -top-1 -right-1 bg-[var(--color-danger)] text-[10px] font-bold text-white rounded-full px-1.5">
+                                        {productQuantityInCart}
+                                    </span>
+                                }
                             </Link>
                         </li>
 

@@ -10,7 +10,8 @@ export interface PagesWithLayout<P = {}> extends FC<P> {
 }
 declare module '@inertiajs/react' {
   interface PageProps extends InertiaPageProps {
-    user?: User,
+    user: User | null,
+    productQuantityInCart: number | null,
     flash?: {
       type: FlashMessageType,
       message: string
