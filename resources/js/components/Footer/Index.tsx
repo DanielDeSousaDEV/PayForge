@@ -23,6 +23,17 @@ export function Footer() {
             >
               Daniel De Sousa
             </a>
+
+            {' e '}
+            
+            <a
+              href="https://github.com/Matheus1415"
+              className="text-[var(--color-primary)] hover:underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Matheus Pereira
+            </a>
           </p>
         </div>
 
