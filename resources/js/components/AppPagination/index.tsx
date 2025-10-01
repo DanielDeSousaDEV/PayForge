@@ -88,6 +88,7 @@ export function AppPagination({paginatedData}:AppPaginationProps) {
                     return (
                         <PaginationItem key={index}>
                             <PaginationLink
+                            className="text-white"
                                 href="#"
                                 isActive={link.active}
                                 onClick={(e) => {
