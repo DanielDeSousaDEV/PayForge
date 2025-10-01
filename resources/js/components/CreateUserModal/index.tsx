@@ -1,50 +1,51 @@
 import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
-import { Button } from "../ui/button"
-import { Label } from "../ui/label"
-import { Input } from "../ui/input"
-import { Textarea } from "../ui/textarea"
-import { useForm } from "@inertiajs/react"
-import { FormErro } from "../FormErro"
-import { DialogProps } from "@radix-ui/react-dialog"
-import { FormEvent } from "react"
-import { Checkbox } from "../ui/checkbox"
+    Dialog,
+    DialogClose,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog";
+import { Button } from "../ui/button";
+import { Label } from "../ui/label";
+import { Input } from "../ui/input";
+import { Textarea } from "../ui/textarea";
+import { useForm } from "@inertiajs/react";
+import { FormErro } from "../FormErro";
+import { DialogProps } from "@radix-ui/react-dialog";
+import { FormEvent } from "react";
+import { Checkbox } from "../ui/checkbox";
 
 interface CreateUserModalProps extends DialogProps {
-    open: boolean,
-    onOpenChange: ((open: boolean) => void)
+    open: boolean;
+    onOpenChange: (open: boolean) => void;
 }
 
 type CreateProductForm = {
-    name: string,
-    email: string,
-    password: string,
-    is_admin: boolean,
-}
+    name: string;
+    email: string;
+    password: string;
+    is_admin: boolean;
+};
 
-export function CreateUserModal({open, onOpenChange}: CreateUserModalProps) {
-    const {data, errors, post, processing, setData} = useForm<CreateProductForm>({
-        name: '',
-        email: '',
-        password: '',
-        is_admin: false
-    })
+export function CreateUserModal({ open, onOpenChange }: CreateUserModalProps) {
+    const { data, errors, post, processing, setData } =
+        useForm<CreateProductForm>({
+            name: "",
+            email: "",
+            password: "",
+            is_admin: false,
+        });
 
     function handleSubmit(e: FormEvent) {
-        e.preventDefault()
+        e.preventDefault();
 
-        post('/admin/users', {
+        post("/admin/users", {
             onSuccess: () => {
                 onOpenChange(false);
-            }
+            },
         });
     }
 
@@ -52,8 +53,10 @@ export function CreateUserModal({open, onOpenChange}: CreateUserModalProps) {
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent className="sm:max-w-3xl">
                 <DialogHeader>
-                    <DialogTitle>Criar usuário</DialogTitle>
-                    <DialogDescription>
+                    <DialogTitle className="text-2xl font-bold text-gray-100">
+                        Criar usuário
+                    </DialogTitle>
+                    <DialogDescription className="text-gray-400">
                         Preencha os dados abaixo.
                     </DialogDescription>
                 </DialogHeader>
@@ -62,42 +65,53 @@ export function CreateUserModal({open, onOpenChange}: CreateUserModalProps) {
                         <div className="grid gap-3">
                             <Label htmlFor="name">Nome</Label>
                             <Input
-                                id="name" 
+                                id="name"
                                 name="name"
-                                value={data.name} 
-                                onChange={e => setData('name', e.target.value)}
+                                value={data.name}
+                                onChange={(e) =>
+                                    setData("name", e.target.value)
+                                }
                             />
                             <FormErro>{errors.name}</FormErro>
                         </div>
                         <div className="grid gap-3">
                             <Label htmlFor="email">Email</Label>
                             <Input
-                                id="email" 
+                                id="email"
                                 name="email"
                                 type="email"
-                                value={data.email} 
-                                onChange={e => setData('email', e.target.value)}
+                                value={data.email}
+                                onChange={(e) =>
+                                    setData("email", e.target.value)
+                                }
                             />
                             <FormErro>{errors.email}</FormErro>
                         </div>
                         <div className="grid gap-3">
                             <Label htmlFor="password">Senha</Label>
                             <Input
-                                id="password" 
+                                id="password"
                                 name="password"
                                 type="password"
-                                value={data.password} 
-                                onChange={e => setData('password', e.target.value)}
+                                value={data.password}
+                                onChange={(e) =>
+                                    setData("password", e.target.value)
+                                }
                             />
                             <FormErro>{errors.password}</FormErro>
                         </div>
                         <div className="grid gap-3">
                             <div className="flex items-center gap-2">
                                 <Checkbox
-                                    id="is_admin" 
+                                    id="is_admin"
                                     name="is_admin"
                                     checked={data.is_admin}
-                                    onCheckedChange={check => setData('is_admin', check ? true : false)}
+                                    onCheckedChange={(check) =>
+                                        setData(
+                                            "is_admin",
+                                            check ? true : false
+                                        )
+                                    }
                                 />
                                 <Label htmlFor="is_admin">Usuário Admin</Label>
                             </div>
@@ -106,12 +120,23 @@ export function CreateUserModal({open, onOpenChange}: CreateUserModalProps) {
                     </div>
                     <DialogFooter>
                         <DialogClose asChild>
-                            <Button variant="outline">Cancelar</Button>
+                            <Button
+                                variant="outline"
+                                className="border-gray-500 text-[var(--color-text)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition"
+                            >
+                                Cancelar
+                            </Button>
                         </DialogClose>
-                        <Button type="submit" disabled={processing}>Criar usuário</Button>
+                        <Button
+                            type="submit"
+                            className="bg-[var(--color-primary)] text-[var(--color-text)] hover:bg-[var(--color-secondary)] transition"
+                            disabled={processing}
+                        >
+                            Criar usuário
+                        </Button>
                     </DialogFooter>
                 </form>
             </DialogContent>
         </Dialog>
-    )
+    );
 }

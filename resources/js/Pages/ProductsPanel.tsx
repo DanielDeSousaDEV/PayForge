@@ -43,19 +43,14 @@ const ProductsPanel: PagesWithLayout<ProductsPanelProps> = ({
     return (
         <>
             <div className="container mx-auto mb-6 p-4 min-h-screen space-y-4">
-                
                 <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-4">
-                    <HomeTitle
-                        icon={
-                            <Box className="size-5 text-[var(--color-primary)]" />
-                        }
-                    >
+                    <HomeTitle icon={<Box className="size-5 text-primary" />}>
                         Todos Produtos
                     </HomeTitle>
 
                     <Button
                         size={isMobile ? "icon" : "default"}
-                        className="bg-[var(--color-primary)] text-[var(--color-background)] hover:bg-[var(--color-secondary)] transition-colors"
+                        className="bg-primary text-white shadow-md hover:bg-primary/90 hover:shadow-lg transition-all rounded-lg flex items-center gap-2"
                         onClick={openCreateProductModal}
                     >
                         {isMobile ? (
@@ -80,9 +75,7 @@ const ProductsPanel: PagesWithLayout<ProductsPanelProps> = ({
 
                     <TableBody>
                         {productsPagination.data.map((p) => (
-                            <TableRow
-                                key={p.id}
-                            >
+                            <TableRow key={p.id}>
                                 <TableCell className="font-medium text-[var(--color-text)]">
                                     {p.id}
                                 </TableCell>
