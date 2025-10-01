@@ -9,7 +9,7 @@ const LoginLayout = ({children}: LoginLayoutProps) => {
     return (
         <>
             <main className="h-screen flex items-center justify-center">
-                <div className="container mx-auto max-w-xl">
+                <div className="container">
                     {children}
                 </div>
             </main>

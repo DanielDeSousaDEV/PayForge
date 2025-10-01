@@ -3,7 +3,7 @@ import { cva, VariantProps } from "class-variance-authority"
 import { HTMLAttributes, HtmlHTMLAttributes, ReactNode } from "react"
 
 const appCardVariants = cva(
-  "bg-white shadow-xl space-y-3 rounded-lg",
+  "bg-background shadow-xl space-y-3 rounded-lg border-1",
   {
     variants: {
       size: {
