@@ -81,12 +81,12 @@ export default function Home({ products, productsMoreSold }: HomeProps) {
                                 />
                             </div>
 
-                            <h4 className="font-heading font-semiboldtext-gray-100 truncate mb-1">
+                            <h4 className="font-heading text-white font-semiboldtext-gray-100 truncate mb-1">
                                 {p.name}
                             </h4>
 
                             <p className="text-sm font-bold text-primary">
-                                R$ {parseFloat(p.price).toFixed(2)}
+                                R$ {p.price}
                             </p>
                         </AppCard>
                     ))}

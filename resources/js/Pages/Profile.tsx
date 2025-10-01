@@ -197,16 +197,16 @@ export default function Profile({ carts }: ProfileProps) {
 
                 <AppCard
                     size="sm"
-                    className="bg-red-50 border-red-400 border-l-4 p-6 shadow-md flex flex-col gap-4"
+                    className="bg-red-900/50 border-red-800 border-l-4 p-6 shadow-md flex flex-col gap-4"
                 >
                     <div className="flex items-center gap-3">
-                        <AlertCircle className="size-6 stroke-red-600" />
-                        <h2 className="text-xl md:text-2xl font-semibold text-red-700">
+                        <AlertCircle className="size-6 stroke-red-400" />
+                        <h2 className="text-xl md:text-2xl font-semibold text-red-400">
                             Deletar Perfil
                         </h2>
                     </div>
 
-                    <p className="text-sm text-red-800 leading-relaxed">
+                    <p className="text-sm text-red-300 leading-relaxed">
                         Esta ação <strong>não pode ser desfeita</strong> e
                         resultará na exclusão permanente de todos os seus dados.
                     </p>

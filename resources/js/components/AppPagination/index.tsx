@@ -24,7 +24,7 @@ export function AppPagination({paginatedData}:AppPaginationProps) {
                     // Define qual tipo de botão usar
                     if (label.includes('«')) {
                         return (
-                            <PaginationItem key={index}>
+                            <PaginationItem key={index} className="text-white">
                                 <PaginationPrevious
                                     href="#"
                                     onClick={(e) => {
@@ -38,7 +38,7 @@ export function AppPagination({paginatedData}:AppPaginationProps) {
 
                     if (label.includes('»')) {
                         return (
-                            <PaginationItem key={index}>
+                            <PaginationItem key={index} className="text-white">
                                 <PaginationNext
                                     href="#"
                                     onClick={(e) => {
@@ -60,7 +60,7 @@ export function AppPagination({paginatedData}:AppPaginationProps) {
                         initialEllipsisAdded = true;
 
                         return (
-                            <PaginationItem key={index}>
+                            <PaginationItem key={index} className="text-white">
                                 <PaginationEllipsis/>
                             </PaginationItem>
                         )
@@ -78,7 +78,7 @@ export function AppPagination({paginatedData}:AppPaginationProps) {
                         afterEllipsisAdded = true;
 
                         return (
-                            <PaginationItem key={index}>
+                            <PaginationItem key={index} className="text-white">
                                 <PaginationEllipsis/>
                             </PaginationItem>
                         )
