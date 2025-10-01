@@ -1,4 +1,4 @@
-import HomeTitle from "@/components/HomeTitle"
+import { HomeTitle } from "@/components/HomeTitle";
 import ProductCartCard from "@/components/ProductCartCard"
 import { Button } from "@/components/ui/button"
 import HomeLayout from "@/layouts/HomeLayout"

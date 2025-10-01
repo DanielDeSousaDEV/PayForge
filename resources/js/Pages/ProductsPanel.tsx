@@ -1,4 +1,4 @@
-import HomeTitle from "@/components/HomeTitle"
+import { HomeTitle } from "@/components/HomeTitle";
 import HomeLayout from "@/layouts/HomeLayout"
 import { PagesWithLayout } from "@/types/inertia"
 import { Pagination as PaginationType } from "@/types/Pagination"

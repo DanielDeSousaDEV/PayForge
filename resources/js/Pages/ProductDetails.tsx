@@ -1,7 +1,7 @@
 import { AddProductToCartModal } from "@/components/AddProductToCartModal"
 import AppCard from "@/components/AppCard"
 import { BuyProductModal } from "@/components/BuyProductModal"
-import HomeTitle from "@/components/HomeTitle"
+import { HomeTitle } from "@/components/HomeTitle";
 import { ProductCarousel } from "@/components/ProductCarousel"
 import { ProductsDisplay } from "@/components/ProductsDisplay"
 import { RatingStars } from "@/components/RatingStarts"
