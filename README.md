@@ -175,7 +175,8 @@ _Siga o passo a passo abaixo para configurar o projeto em seu ambiente local._
 <!-- CONTACT -->
 ## Contato
 
-Daniel De Sousa - danieldesousa.dev@gmail.com
+**Backend**: Daniel De Sousa - danieldesousa.dev@gmail.com
+**Frontend**: Matheus Pereira - [Portfólio](https://mps-dev-aretado.netlify.app/)
 
 Link do repositório: [https://github.com/DanielDeSousaDEV/PayForge](https://github.com/DanielDeSousaDEV/PayForge)
 

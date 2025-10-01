@@ -1,12 +1,16 @@
 import { FlashMessagesTypeEnum } from "@/enums/FlashMessagesTypes"
 import { usePage } from "@inertiajs/react"
 import { useEffect, useRef, useState } from "react"
+import { Alert, AlertDescription, AlertTitle } from "../ui/alert"
 
 export function AppToast() {
     const { flash } = usePage().props
     const [visible, setVisible] = useState(false)
     const [animate, setAnimate] = useState<"in" | "out">("in")
     const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+    const isError = flash?.type === FlashMessagesTypeEnum.error 
+        || flash?.type === FlashMessagesTypeEnum.danger;
 
     useEffect(() => {
         if (flash?.message) {
@@ -19,7 +23,7 @@ export function AppToast() {
                 setAnimate("out")
                 // espera a animação terminar antes de desmontar
                 setTimeout(() => setVisible(false), 300)
-            }, 7000)
+            }, 10000000000)
         }
 
         return () => {
@@ -29,35 +33,16 @@ export function AppToast() {
 
     if (!visible) return null
 
-    let classes = '';
-
-    switch (flash?.type) {
-        case FlashMessagesTypeEnum.danger:
-            classes = 'bg-danger text-gray-900'
-            break;
-
-        case FlashMessagesTypeEnum.error:
-            classes = 'bg-red-300 text-gray-900'
-            break;
-
-        case FlashMessagesTypeEnum.success:
-            classes = 'bg-primary text-gray-900'
-            break;
-            
-        default:
-            classes = 'bg-gray-300 text-gray-900'
-            break;
-    }
-
     return (
-        <div
+        <Alert
             className={`
-                fixed bottom-4 right-4 p-3 rounded-lg shadow-lg
-                ${classes}
+                fixed bottom-4 right-4 max-w-xs md:max-w-sm
                 ${animate === "in" ? "animate-fade-in" : "animate-fade-out"}
             `}
+            variant={isError ? 'destructive' : 'default'}
         >
-                {flash?.message}
-        </div>
+            <AlertTitle>{isError ? 'Erro' : 'Sucesso'}</AlertTitle>
+            <AlertDescription>{flash?.message}</AlertDescription>
+        </Alert>
     )
 }
