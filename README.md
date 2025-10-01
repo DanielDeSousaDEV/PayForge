@@ -111,7 +111,11 @@ _Siga o passo a passo abaixo para configurar o projeto em seu ambiente local._
       ```sh
       composer install
       ```
-5. Copie o arquivo `.env` e configure as seguintes variáveis de ambiente
+5. Copie e cole o arquivo o arquivo `.env.example` e renomeie para `.env`
+      ```
+      cp .env.example .env
+      ```
+6. Configure as seguintes variáveis de ambiente
       ```
       DB_CONNECTION=sqlite
       DB_HOST=127.0.0.1
@@ -131,31 +135,35 @@ _Siga o passo a passo abaixo para configurar o projeto em seu ambiente local._
       STRIPE_SECRET=your-stripe-secret
       STRIPE_WEBHOOK_SECRET=your-stripe-webhook-secret
       ```
-6. Crie a chave do laravel
+7. Crie a chave do laravel
       ```sh
       php artisan key:generate
       ```
-7. Execute as migrations
+8. Execute as migrations
       ```sh
       php artisan migrate
       ```
-8. Execute o seeder
+9. Execute o seeder
       ```sh
       php artisan db:seed
       ```
-9. Execute o projeto
+10. Crie o link simbolico
+      ```sh
+      php artisan storage:link
+      ```
+11. Execute o projeto
       ```sh
       composer dev
       ```
-10. Faça login com a CLI do Stripe (somente caso não tenha feito)
+12. Faça login com a CLI do Stripe (somente caso não tenha feito)
       ```sh
       ./stripe login
       ```
-11. Adicione um ouvidor de evento do Stripe Local
+13. Adicione um ouvidor de evento do Stripe Local
       ```sh
       ./stripe listen --forward-to localhost:8000/stripe/webhook
       ```
-12. Faça login com um usuário Admin
+14. Faça login com um usuário Admin
       ```
       email      =>   gabriel.dev@gmail.com,
       password   =>   Admin@123,

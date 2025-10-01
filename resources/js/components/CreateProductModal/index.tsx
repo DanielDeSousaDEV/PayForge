@@ -39,6 +39,11 @@ export function CreateProductModal({open, onOpenChange}: CreateProductModalProps
         description: '',
     })
 
+    // Padronizando o texto de erro do images
+    const imagesError = Object.entries(errors).find(([key]) =>
+        key.startsWith("images.")
+    )?.[1]
+
     function handleSubmit(e: FormEvent) {
         e.preventDefault()
 
@@ -79,7 +84,6 @@ export function CreateProductModal({open, onOpenChange}: CreateProductModalProps
                                 name="price" 
                                 value={data.price} 
                                 min={0.01}
-                                accept="image/png,image/jpeg"
                                 onChange={e => setData('price', Number(e.target.value ?? 0))}
                             />
                             <FormErro>{errors.price}</FormErro>
@@ -101,10 +105,11 @@ export function CreateProductModal({open, onOpenChange}: CreateProductModalProps
                                 id="images" 
                                 type="file" 
                                 name="images" 
+                                accept="image/png,image/jpeg"
                                 multiple
                                 onChange={e => setData('images', e.target.files ? Array.from(e.target.files) : [])}
                             />
-                            <FormErro>{errors.images}</FormErro>
+                            <FormErro>{imagesError}</FormErro>
                         </div>
                         <div className="grid gap-3">
                             <Label htmlFor="description">Descrição</Label>
