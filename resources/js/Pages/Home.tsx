@@ -81,7 +81,7 @@ export default function Home({ products, productsMoreSold }: HomeProps) {
                                 />
                             </div>
 
-                            <h4 className="font-heading font-semibold text-gray-900 dark:text-gray-100 truncate mb-1">
+                            <h4 className="font-heading font-semiboldtext-gray-100 truncate mb-1">
                                 {p.name}
                             </h4>
 
