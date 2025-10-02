@@ -27,7 +27,7 @@ export default function Home({ products, productsMoreSold }: HomeProps) {
                 />
             </section>
 
-            <section>
+            {/* <section>
                 <HomeTitle icon={<Flame className="size-5" />}>
                     Produtos em alta
                 </HomeTitle>
@@ -59,7 +59,7 @@ export default function Home({ products, productsMoreSold }: HomeProps) {
                         <Button className="self-end">Visitar página</Button>
                     </div>
                 </AppCard>
-            </section>
+            </section> */}
 
             <section className="mb-8">
                 <HomeTitle icon={<Trophy className="size-5" />}>
