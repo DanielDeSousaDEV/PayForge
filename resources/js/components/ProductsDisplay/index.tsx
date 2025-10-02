@@ -10,7 +10,7 @@ export function ProductsDisplay({
     handleProductCardClick,
 }: ProductsDisplayProps) {
     return (
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 px-2 md:px-4 place-items-stretch">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 px-2 md:px-4 place-items-center">
             {products.map((product, index) => (
                 <ProductCard
                     key={index}
