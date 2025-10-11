@@ -218,14 +218,3 @@ Link do repositório: [https://github.com/DanielDeSousaDEV/PayForge](https://git
 [Tailwind-url]: https://tailwindcss.com/
 [JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
 [JQuery-url]: https://jquery.com 
-
-
-# tarefas
-- [x] fazer a integração com cashier
-- [x] atualização de perfil
-- [x] Fazer a páginação funcionar
-- [x] delete me
-- [x] admin users
-- [x] fazer um email quando o carrinho for pago
-- [x] middleware de admin
-- [ ] melhorar interface
