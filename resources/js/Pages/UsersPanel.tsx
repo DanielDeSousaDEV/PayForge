@@ -70,11 +70,11 @@ const UsersPanel: PagesWithLayout<UsersPanelProps> = ({ usersPagination }) => {
                 </div>
 
                 <Table className="bg-[var(--color-surface)] text-[var(--color-background)] overflow-hidden rounded-lg shadow-sm">
-                    <TableHeader className="bg-[var(--color-background)] text-[var(--color-text)]">
+                    <TableHeader className="bg-[var(--color-primary)] text-[var(--color-background)]">
                         <TableRow>
                             <TableHead className="w-[80px]">ID</TableHead>
-                            <TableHead className="font-medium text-[var(--color-text)]">Nome</TableHead>
-                            <TableHead className="font-medium text-[var(--color-text)]">Email</TableHead>
+                            <TableHead className="font-medium">Nome</TableHead>
+                            <TableHead className="font-medium">Email</TableHead>
                             <TableHead className="text-center">Cargo</TableHead>
                             <TableHead className="text-center">Ações</TableHead>
                         </TableRow>
@@ -96,7 +96,7 @@ const UsersPanel: PagesWithLayout<UsersPanelProps> = ({ usersPagination }) => {
                                         variant="default"
                                         className={`${
                                             user.is_admin
-                                                ? "bg-primary text-white"
+                                                ? "bg-primary text-background"
                                                 : "bg-[var(--color-background)] text-[var(--color-text)] border border-gray-500"
                                         } px-2 py-1 rounded-full text-sm`}
                                     >

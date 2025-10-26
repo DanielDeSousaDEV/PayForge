@@ -42,7 +42,6 @@
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
 [![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![Unlicense License][license-shield]][license-url]
@@ -176,6 +175,7 @@ _Siga o passo a passo abaixo para configurar o projeto em seu ambiente local._
 ## Contato
 
 **Backend**: Daniel De Sousa - danieldesousa.dev@gmail.com
+
 **Frontend**: Matheus Pereira - [Portfólio](https://mps-dev-aretado.netlify.app/)
 
 Link do repositório: [https://github.com/DanielDeSousaDEV/PayForge](https://github.com/DanielDeSousaDEV/PayForge)
